@@ -1,9 +1,9 @@
 
 import './App.css';
 
-import Header from './components/Header.js'
-import SideBar from './components/SideBar.js'
-import Profile from './components/Profile.js'
+import Header from './components/Header/Header.js'
+import SideBar from './components/SideBar/SideBar.js'
+import Profile from './components/Profile/Profile.js'
 
 function App() {
   return (

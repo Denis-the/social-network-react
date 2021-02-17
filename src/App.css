@@ -12,31 +12,7 @@
   grid-gap: 10px;
 }
 
-.app-header {
-  grid-area: h;
 
-  background-color: greenyellow;
-}
 
-.app-header__site-logo {
-  height:60px;
-}
 
-.side-bar {
-  grid-area: n;
-  background-color: indianred;
-}
 
-.content {
-  grid-area: c ;
-  background-color: cyan;
-}
-
-.content__big-image {
-  height: 200px;
-  overflow: hidden;
-}
-
-.big-image__image {
-  width:100%
-}

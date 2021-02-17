@@ -1,0 +1,13 @@
+.profile {
+    grid-area: c ;
+    background-color: cyan;
+  }
+  
+.big-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.big-image__image {
+    width:100%
+}
