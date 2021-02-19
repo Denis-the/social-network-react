@@ -11,24 +11,31 @@ const postsList = [
 class MyPosts extends React.Component {
     constructor(props){
         super(props);
+
+        
+        this.state = {
+            user: props.user,
+        }
     }
 
 
     render() {
+
         const testPosts = postsList.map((text) => (
-            <Post text={text}/>
+            <Post 
+            key={text}
+            user={this.state.user} 
+            text={text}
+            likesCount={Math.floor(Math.random() * Math.floor(10))}
+            />
             ))
-        console.log(testPosts)
+        
         return (
             <div className={s.myPosts}>
-                <div className={s.newPost}>
-
-
-                </div>
+                <div className={s.newPost}></div>
 
                 <div className={s.posts}>
                     {testPosts}
-                    
                 </div>
             </div>
 
