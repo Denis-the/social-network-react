@@ -1,9 +1,22 @@
-.header {
-    grid-area: h;
+.dialogs{
+  display: flex;
+  width: 100%;
+
+  background-color: red;
+}
+
+.dialogUsers {
+  min-width: 250px;
+  max-width: 25%;
+  border-right: 1px solid indigo;
   
-    background-color: greenyellow;
-  }
+
+  background-color: greenyellow;
+  flex: 0 0 auto;
   
-  .site-logo {
-    height:60px;
-  }
+}
+
+
+
+
+

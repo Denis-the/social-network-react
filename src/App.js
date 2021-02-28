@@ -1,29 +1,42 @@
 
 import './App.css';
-
+import React from 'react'
 import Header from './components/Header/Header.js'
 import SideBar from './components/SideBar/SideBar.js'
 import Profile from './components/Profile/Profile.js'
 import Dialogs from './components/Dialogs/Dialogs.js';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-function App() {
+
+function App(props) {
+  
   return (
-    <BrowserRouter>
+
       <div className="app-wrapper">
         <Header />
-        <SideBar />
+        <SideBar state={props.state.sideBarData}/>
 
         <div className="app-wrapper__content">
-          <Route path='/dialogs' component={Dialogs} />
-          <Route path='/profile' component={Profile} />
+          <Switch>
+          <Route exact 
+          path='/profile' 
+          render={() => (
+            <Profile profileData={props.state.profileData} />
+          )}
+          />
+          <Route exact 
+          path='/dialogs' 
+          render={() => (
+            <Dialogs dialogsData={props.state.dialogsData}/>
+          )}
+          /> 
+          </Switch>
 
         </div>
 
 
         <footer className='app-footer'></footer>
       </div>
-    </BrowserRouter>
   );
 }
 

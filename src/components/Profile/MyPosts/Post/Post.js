@@ -3,23 +3,14 @@ import s from  './Post.module.css';
 import UserAvatar from './../../UserAvatar/UserAvatar.js'
 
 class Post extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            text: props.text,
-            user: props.user,
-            likes: props.likesCount,
-        }
-    }
-
     render() {
         return (
             <div className={s.post}>
                 <div>
-                <UserAvatar imageUrl={this.state.user.avatar}/>
-                <div className={s.text}>{this.state.text}</div>
+                <UserAvatar imageUrl={this.props.user.avatar}/>
+                <div className={s.text}>{this.props.text}</div>
                 </div>
-                <div>Likes: {this.state.likes}</div>
+                <div>Likes: {this.props.likes}</div>
             </div>
         )
     }

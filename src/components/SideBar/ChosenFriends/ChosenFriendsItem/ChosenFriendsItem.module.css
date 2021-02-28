@@ -1,0 +1,15 @@
+.user {
+    display: flex;
+    flex-flow: column wrap;
+    width: 33.33%;
+    align-items: center;
+}
+
+.userAvatar {
+
+
+}
+
+.userName {
+    word-break:break-all;
+}

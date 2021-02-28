@@ -1,44 +1,32 @@
 import React from 'react';
 import s from  './MyPosts.module.css';
 import Post from './Post/Post.js'
+import NewPost from './NewPost/NewPost'
 
-const postsList = [
-    'Hey, why nobody love me?',
-    "It's our new program! Hey",
-]
 
 
 class MyPosts extends React.Component {
-    constructor(props){
-        super(props);
-
-        
-        this.state = {
-            user: props.user,
-        }
-    }
-
-
     render() {
-
-        const testPosts = postsList.map((text) => (
+        const jsxPosts = this.props.posts.map((post) => (
             <Post 
-            key={text}
-            user={this.state.user} 
-            text={text}
-            likesCount={Math.floor(Math.random() * Math.floor(10))}
+            key={post.id}
+            user={post.user} 
+            text={post.text}
+            likes={post.likes}
             />
             ))
         
         return (
-            <div className={s.myPosts}>
-                <div className={s.newPost}></div>
+            <div>
+                <h2>My Posts</h2>
+                <div className={s.myPosts}>
+                    <NewPost newPostHandler={this.props.newPostHandler}/>
 
-                <div className={s.posts}>
-                    {testPosts}
+                    <div className={s.posts}>
+                        {jsxPosts}
+                    </div>
                 </div>
             </div>
-
         )
     }
 
