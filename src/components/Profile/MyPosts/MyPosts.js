@@ -7,7 +7,7 @@ import NewPost from './NewPost/NewPost'
 
 class MyPosts extends React.Component {
     render() {
-        const jsxPosts = this.props.posts.map((post) => (
+        const jsxPosts = this.props.posts.reverse().map((post) => (
             <Post 
             key={post.id}
             user={post.user} 

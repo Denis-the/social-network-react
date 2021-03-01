@@ -1,7 +1,16 @@
-.dialogMessages__item {
+.message {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.message__sender {  
+    min-width: 100px;
+    flex:  0 0 auto;
+    
 
 }
 
-.dialogMessages__item {
-
+.message__text {
+    flex:  1 1 auto;
 }
