@@ -6,18 +6,25 @@ const NewPost = (props) => {
     const textareaRef = React.createRef()
 
     const addPost = () => {
-        props.newPostHandler.handler.addPost();
+        const action = {
+            type: 'ADD-NEW-POST'
+        };
+        props.dispatch(action);
     }
 
     const newPostOnChange = () => {
-        const text = textareaRef.current.value;
-        props.newPostHandler.handler.handleChange(text);
+        const newValue = textareaRef.current.value;
+        const action = {
+            type: 'UPDATE-NEW-POST-VALUE',
+            newValue: newValue,
+        }
+        props.dispatch(action);
     }
 
     return (
         <div className={s.newPost}>
             <div>
-                <textarea ref={ textareaRef } onChange={ newPostOnChange } value={props.newPostHandler.value}></textarea>
+                <textarea ref={ textareaRef } onChange={ newPostOnChange } value={props.newPostValue}></textarea>
             </div>
             <div>
                 <button onClick={ addPost }>Опубликовать</button>

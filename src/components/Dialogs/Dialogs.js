@@ -4,21 +4,19 @@ import DialogItem from './DialogItem/DialogItem.js'
 import Messages from './Messages/Messages.js';
 
 class Dialogs extends React.Component {
+    
     render() {
-        
-        const dialogsData = this.props.dialogsData.dialogs;
-        const messagesData = this.props.dialogsData.messages;
-        const newMassageHandler = this.props.dialogsData.newMessageHandler;
+        const dialogs = this.props.dialogsData.dialogs;
         
         return (
             <div className={s.dialogs}>
                 <div className={s.dialogUsers}>
-                    {dialogsData.map((user) => (
+                    {dialogs.map((user) => (
                         <DialogItem key={user.id} user={user}/>
                     ))}
                 </div>
                 
-                <Messages messagesData={messagesData} newMessageHandler={newMassageHandler}/>
+                <Messages dialogsData={this.props.dialogsData} dispatch={this.props.dispatch}/>
             </div>
         )
     }

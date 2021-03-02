@@ -4,18 +4,26 @@ import s from './NewMessage.module.css';
 
 
 const NewMessage = (props) => {
+    
     const newMessageArea = React.createRef();
     const sendNewMessage = () => {
-        props.newMessageHandler.handler.sendMessage();
+        const action = {
+            type: 'SEND-NEW-MESSAGE',
+        }
+        props.dispatch(action);
     }
-    const handleMessageChange = () => {
+    const updateNewMessageValue = () => {
         const newValue = newMessageArea.current.value;
-        props.newMessageHandler.handler.handleChange(newValue);
+        const action = {
+            type: 'UPDATE-NEW-MESSAGE-VALUE',
+            newValue: newValue,
+        }
+        props.dispatch(action);
     }
 
     return (
         <div>
-            <textarea ref={newMessageArea} onChange={handleMessageChange} value={props.newMessageHandler.value}></textarea>
+            <textarea ref={newMessageArea} onChange={updateNewMessageValue} value={props.newMessageValue}></textarea>
             <button onClick={sendNewMessage}>отправить</button>
         </div>
 

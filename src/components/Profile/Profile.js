@@ -18,7 +18,7 @@ class Profile extends React.Component {
         </div>
 
         <ProfileInfo />
-        <MyPosts posts={profileData.posts} newPostHandler={profileData.newPostHandler} />
+        <MyPosts profileData={profileData} dispatch={this.props.dispatch} />
 
       </div>
     )

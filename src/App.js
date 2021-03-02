@@ -21,13 +21,13 @@ function App(props) {
           <Route exact 
           path='/profile' 
           render={() => (
-            <Profile profileData={props.state.profileData} />
+            <Profile profileData={props.state.profileData} dispatch={props.dispatch} />
           )}
           />
           <Route exact 
           path='/dialogs' 
           render={() => (
-            <Dialogs dialogsData={props.state.dialogsData}/>
+            <Dialogs dialogsData={props.state.dialogsData} dispatch={props.dispatch}/>
           )}
           /> 
           </Switch>

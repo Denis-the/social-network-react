@@ -7,7 +7,7 @@ import NewPost from './NewPost/NewPost'
 
 class MyPosts extends React.Component {
     render() {
-        const jsxPosts = this.props.posts.reverse().map((post) => (
+        const jsxPosts = this.props.profileData.posts.reverse().map((post) => (
             <Post 
             key={post.id}
             user={post.user} 
@@ -20,7 +20,7 @@ class MyPosts extends React.Component {
             <div>
                 <h2>My Posts</h2>
                 <div className={s.myPosts}>
-                    <NewPost newPostHandler={this.props.newPostHandler}/>
+                    <NewPost dispatch={this.props.dispatch} newPostValue={this.props.profileData.newPostValue}/>
 
                     <div className={s.posts}>
                         {jsxPosts}
