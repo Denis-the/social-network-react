@@ -1,4 +1,14 @@
-let store = {
+import dialogsReducer from "./dialogsReducer";
+import profileReducer from "./profileReducer";
+import sideBarReducer from "./sideBarReducer";
+
+const SEND_NEW_MESSAGE = 'SEND-NEW-MESSAGE';
+const UPDATE_NEW_MESSAGE_VALUE = 'UPDATE-NEW-MESSAGE-VALUE';
+const ADD_NEW_POST = 'ADD-NEW-POST';
+const UPDATE_NEW_POST_VALUE = 'UPDATE-NEW-POST-VALUE';
+
+
+const store = {
     _state: {
         dialogsData: {
             dialogs: [
@@ -31,61 +41,32 @@ let store = {
             ]
         }
     },
-    _subscriber() {
+    _callSubscriber() {
         console.log('Empty sub');
     },
     getState() {
         return this._state
     },
     subscribe(subscriber) {
-        this._subscriber = subscriber;
+        this._callSubscriber = subscriber;
     },
 
     dispatch(action) {
-        switch(action.type) {
-            case 'SEND-NEW-MESSAGE':
-                const messageId = this._state.dialogsData.messages[this._state.dialogsData.messages.length - 1].id + 1;
-                const sender = { id: 1, name: 'Jack', avatar: 'https://www.kinonews.ru/insimgs/2019/newsimg/newsimg87089.jpg' };
-                const messageText = this._state.dialogsData.newMessageValue; 
-                const newMassage = {
-                    id: messageId,
-                    sender: sender,
-                    text: messageText,
-                };
-                this._state.dialogsData.messages.push(newMassage);
-                this._state.dialogsData.newMessageValue = '';
-                this._subscriber(this);
-                break;
 
-            case 'UPDATE-NEW-MESSAGE-VALUE':
-                this._state.dialogsData.newMessageValue = action.newValue;
-                this._subscriber(this);
-                break;
+        this._state =  profileReducer(this._state, action);
+        this._state = dialogsReducer(this._state, action);
+        this._state = sideBarReducer(this._state, action);
+        this._callSubscriber(this);
 
-            case 'ADD-NEW-POST':
-                const postId = this._state.profileData.posts[this._state.profileData.posts.length - 1].id + 1;
-                const postText = this._state.profileData.newPostValue;
-                const newPost = {
-                    id: postId,
-                    user: { id: 1, name: 'Jack', avatar: 'https://www.kinonews.ru/insimgs/2019/newsimg/newsimg87089.jpg' },
-                    likes: 0,
-                    text: postText,
-                };
-                this._state.profileData.posts.push(newPost);
-                this._state.profileData.newPostValue = '';
-                this._subscriber(this);
-                break;
-
-            case 'UPDATE-NEW-POST-VALUE':
-                this._state.profileData.newPostValue = action.newValue;
-                this._subscriber(this);
-                break;
-        }
-
-    },
-
+    }
 }
 
+export const sendNewMessageActionCreator = () => ({type:SEND_NEW_MESSAGE});
+export const updateNewMessageValueActionCreator = (newValue) => ({
+    type:UPDATE_NEW_MESSAGE_VALUE, newValue: newValue});
+export const addNewPostActionCreator = () => ({type:ADD_NEW_POST});
+export const updateNewPostValueActionCreator = (newValue) => ({
+    type:UPDATE_NEW_POST_VALUE, newValue: newValue});
 
 
 window.store = store;

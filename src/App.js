@@ -34,7 +34,6 @@ function App(props) {
 
         </div>
 
-
         <footer className='app-footer'></footer>
       </div>
   );

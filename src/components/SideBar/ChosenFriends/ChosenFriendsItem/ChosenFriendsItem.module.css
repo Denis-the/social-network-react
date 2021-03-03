@@ -3,6 +3,8 @@
     flex-flow: column wrap;
     width: 33.33%;
     align-items: center;
+    text-decoration: none;
+    
 }
 
 .userAvatar {
@@ -11,5 +13,6 @@
 }
 
 .userName {
+    color:white;
     word-break:break-all;
 }
