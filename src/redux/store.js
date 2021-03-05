@@ -2,11 +2,6 @@ import dialogsReducer from "./dialogsReducer";
 import profileReducer from "./profileReducer";
 import sideBarReducer from "./sideBarReducer";
 
-const SEND_NEW_MESSAGE = 'SEND-NEW-MESSAGE';
-const UPDATE_NEW_MESSAGE_VALUE = 'UPDATE-NEW-MESSAGE-VALUE';
-const ADD_NEW_POST = 'ADD-NEW-POST';
-const UPDATE_NEW_POST_VALUE = 'UPDATE-NEW-POST-VALUE';
-
 
 const store = {
     _state: {
@@ -61,12 +56,6 @@ const store = {
     }
 }
 
-export const sendNewMessageActionCreator = () => ({type:SEND_NEW_MESSAGE});
-export const updateNewMessageValueActionCreator = (newValue) => ({
-    type:UPDATE_NEW_MESSAGE_VALUE, newValue: newValue});
-export const addNewPostActionCreator = () => ({type:ADD_NEW_POST});
-export const updateNewPostValueActionCreator = (newValue) => ({
-    type:UPDATE_NEW_POST_VALUE, newValue: newValue});
 
 
 window.store = store;

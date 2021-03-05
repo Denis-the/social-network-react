@@ -9,7 +9,6 @@ import { Route, Switch } from 'react-router-dom';
 
 
 function App(props) {
-  
   return (
 
       <div className="app-wrapper">

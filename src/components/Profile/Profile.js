@@ -8,7 +8,8 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 class Profile extends React.Component {
 
 
-  render() {
+  render() { 
+    
     const profileData = this.props.profileData;
 
     return (

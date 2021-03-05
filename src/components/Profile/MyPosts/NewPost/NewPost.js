@@ -1,10 +1,10 @@
 import React from 'react';
-import { addNewPostActionCreator, updateNewPostValueActionCreator } from '../../../../redux/state';
+import { addNewPostActionCreator, updateNewPostValueActionCreator } from '../../../../redux/profileReducer';
 import Post from '../Post/Post';
 import s from  './NewPost.module.css';
 
 const NewPost = (props) => {
-
+    console.log(props)
     const addPost = () => {
         const action = addNewPostActionCreator();
         props.dispatch(action);
