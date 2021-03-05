@@ -1,28 +1,24 @@
 import React from 'react';
-import { addNewPostActionCreator, updateNewPostValueActionCreator } from '../../../../redux/profileReducer';
+
 import Post from '../Post/Post';
 import s from  './NewPost.module.css';
 
 const NewPost = (props) => {
-    console.log(props)
-    const addPost = () => {
-        const action = addNewPostActionCreator();
-        props.dispatch(action);
+    const onAddPost = () => {
+        props.addPost()
     }
-
-    const updateNewPostValue = (e) => {
+    const onUpdateNewPostValue = (e) => {
         const newValue = e.target.value;
-        const action = updateNewPostValueActionCreator(newValue)
-        props.dispatch(action);
+        props.updateNewPostValue(newValue);
     }
 
     return (
         <div className={s.newPost}>
             <div>
-                <textarea onChange={ updateNewPostValue } value={props.newPostValue}></textarea>
+                <textarea onChange={ onUpdateNewPostValue } value={props.newPostValue}></textarea>
             </div>
             <div>
-                <button onClick={ addPost }>Опубликовать</button>
+                <button onClick={ onAddPost }>Опубликовать</button>
             </div>
         </div>
     )

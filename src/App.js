@@ -13,20 +13,20 @@ function App(props) {
 
       <div className="app-wrapper">
         <Header />
-        <SideBar state={props.state.sideBarData}/>
+        <SideBar store={props.store}/>
 
         <div className="app-wrapper__content">
           <Switch>
           <Route exact 
           path='/profile' 
           render={() => (
-            <Profile profileData={props.state.profileData} dispatch={props.dispatch} />
+            <Profile store={props.store}/>
           )}
           />
           <Route exact 
           path='/dialogs' 
           render={() => (
-            <Dialogs dialogsData={props.state.dialogsData} dispatch={props.dispatch}/>
+            <Dialogs store={props.store}/>
           )}
           /> 
           </Switch>

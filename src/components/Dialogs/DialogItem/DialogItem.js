@@ -9,8 +9,13 @@ const DialogItem = (props) => {
     const path = `/dialogs/${user.id}`;
     return (
         <NavLink className={s.dialogUsers__item} to={path}>
-            <UserAvatar className={s.dialogUsers__avatar} imageUrl={user.avatar}/>
-            <div className={s.dialogUsers__name}>{user.name}</div>
+            <UserAvatar 
+            className={s.dialogUsers__avatar} 
+            imageUrl={user.avatar}/>
+
+            <div className={s.dialogUsers__name}>
+                {user.name}
+            </div>
         </NavLink>
     )
 }

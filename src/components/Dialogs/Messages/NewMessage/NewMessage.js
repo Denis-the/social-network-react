@@ -1,25 +1,23 @@
 import React from 'react';
-import { sendNewMessageActionCreator, updateNewMessageValueActionCreator } from '../../../../redux/dialogsReducer';
+
 import s from './NewMessage.module.css';
 
 
 
 const NewMessage = (props) => {
-    
-    const sendNewMessage = () => {
-        const action = sendNewMessageActionCreator()
-        props.dispatch(action);
+
+    const onSendNewMessage = () => {
+        props.sendNewMessage();
     }
-    const updateNewMessageValue = (e) => {
+    const onUpdateNewMessageValue = (e) => {
         const newValue = e.target.value;
-        const action = updateNewMessageValueActionCreator(newValue);
-        props.dispatch(action);
+        props.updateNewMessageValue(newValue)
     }
 
     return (
         <div>
-            <textarea onChange={updateNewMessageValue} value={props.newMessageValue}></textarea>
-            <button onClick={sendNewMessage}>отправить</button>
+            <textarea onChange={onUpdateNewMessageValue} value={props.newMessageValue}></textarea>
+            <button onClick={onSendNewMessage}>отправить</button>
         </div>
 
     )

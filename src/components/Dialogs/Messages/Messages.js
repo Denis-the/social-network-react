@@ -5,15 +5,23 @@ import NewMessage from './NewMessage/NewMessage';
 
 
 const Messages = (props) => {
+
+    const messagesJSX = props.messages.map((message) => (
+        <MessageItem 
+        key={message.id} 
+        message={message}
+        />
+    ))
+
     return (
         <div className={s.dialogMessages}>
-            {props.dialogsData.messages.map((message) => (
-                    <MessageItem 
-                    key={message.id} 
-                    message={message}/>
-                ))}
+            {messagesJSX}
 
-            <NewMessage newMessageValue={props.dialogsData.newMessageValue} dispatch={props.dispatch} />
+            <NewMessage 
+            updateNewMessageValue={props.updateNewMessageValue}
+            sendNewMessage={props.sendNewMessage}
+            newMessageValue={props.newMessageValue} 
+            />
         </div>
     )
 }
