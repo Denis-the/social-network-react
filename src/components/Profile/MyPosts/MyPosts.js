@@ -4,7 +4,7 @@ import Post from './Post/Post.js'
 import NewPost from './NewPost/NewPost'
 
 const MyPosts = (props) => {
-    const jsxPosts = props.posts.reverse().map((post) => (
+    const postsJSX = props.posts.reverse().map((post) => (
         <Post
             key={post.id}
             user={post.user}
@@ -24,7 +24,7 @@ const MyPosts = (props) => {
                 />
 
                 <div className={s.posts}>
-                    {jsxPosts}
+                    {postsJSX}
                 </div>
             </div>
         </div>

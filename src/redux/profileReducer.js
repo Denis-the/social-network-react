@@ -13,9 +13,9 @@ const initialProfileState = {
 
 
 const profileReducer = (state = initialProfileState, action) => {
-    
+
     switch(action.type) {
-        case ADD_NEW_POST:
+        case ADD_NEW_POST: {
             if (!state.newPostValue) break;
             const postId = state.posts[state.posts.length - 1].id + 1;
             const postText = state.newPostValue;
@@ -25,13 +25,22 @@ const profileReducer = (state = initialProfileState, action) => {
                 likes: 0,
                 text: postText,
             };
-            state.posts.push(newPost);
-            state.newPostValue = '';   
-            break;
+            if (state.newPostValue != '') {
+                const stateCopy = Object.assign({}, state);
+                stateCopy.posts = [...state.posts];
 
-        case UPDATE_NEW_POST_VALUE:
-            state.newPostValue = action.newValue;
-            break;
+                stateCopy.posts.push(newPost);
+                stateCopy.newPostValue = '';   
+                return stateCopy
+
+            }
+        }
+            
+        case UPDATE_NEW_POST_VALUE: {
+            const stateCopy = Object.assign({}, state);
+            stateCopy.newPostValue = action.newValue;
+            return stateCopy
+        }
     }
 
     return state 

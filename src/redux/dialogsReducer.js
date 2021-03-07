@@ -16,9 +16,9 @@ const initialDialogsState = {
 
 
  const dialogsReducer = (state=initialDialogsState, action) => {
-
+    
     switch(action.type) {
-        case SEND_NEW_MESSAGE:
+        case SEND_NEW_MESSAGE: {
             const messageId = state.messages[state.messages.length - 1].id + 1;
             const sender = { id: 1, name: 'Jack', avatar: 'https://www.kinonews.ru/insimgs/2019/newsimg/newsimg87089.jpg' };
             const messageText = state.newMessageValue; 
@@ -27,14 +27,21 @@ const initialDialogsState = {
                 sender: sender,
                 text: messageText,
             };
-            state.messages.push(newMassage);
-            state.newMessageValue = '';
-            break;
+            
+            const stateCopy = Object.assign({}, state);
+            stateCopy.messages = [...state.messages]
+        
+            stateCopy.messages.push(newMassage);
+            stateCopy.newMessageValue = '';
+            return stateCopy;
+        }
 
-        case UPDATE_NEW_MESSAGE_VALUE:
-            state.newMessageValue = action.newValue;
-            break;
+        case UPDATE_NEW_MESSAGE_VALUE: {
+            const stateCopy = Object.assign({}, state);
 
+            stateCopy.newMessageValue = action.newValue;
+            return stateCopy;
+        }
     }
 
     return state 
