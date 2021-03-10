@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import ChosenFriends from './ChosenFriends/ChosenFriends';
-import s from  './SideBar.module.css';
+import s from './SideBar.module.css';
 
 const SideBar = (props) => {
     const chosenFriendsList = props.store.getState().sideBarData.chosenFriends;
@@ -9,35 +9,49 @@ const SideBar = (props) => {
         <div className={s.sideBar}>
             <nav >
                 <div className={s.item}>
-                    <NavLink to='/profile' activeClassName={s.active}>Profile</NavLink>
+                    <NavLink
+                        to='/profile'
+                        activeClassName={s.active}>Profile
+                    </NavLink>
                 </div>
                 <div className={s.item}>
                     <NavLink
-                        to='/dialogs' activeClassName={s.active}>
+                        to='/dialogs'
+                        activeClassName={s.active}>
                         Dialogs
-                </NavLink>
+                    </NavLink>
                 </div>
                 <div className={s.item}>
                     <NavLink
-                        to='/news' activeClassName={s.active}>
+                        to='/users'
+                        activeClassName={s.active}>
+                        Users
+                    </NavLink>
+                </div>
+                <div className={s.item}>
+                    <NavLink
+                        to='/news'
+                        activeClassName={s.active}>
                         News
-                </NavLink>
+                    </NavLink>
                 </div>
                 <div className={s.item}>
                     <NavLink
-                        to='/music' activeClassName={s.active}>
+                        to='/music'
+                        activeClassName={s.active}>
                         Music
-                </NavLink>
+                    </NavLink>
                 </div>
                 <div className={s.item}>
                     <NavLink
-                        to='/settings' activeClassName={s.active}>
+                        to='/settings'
+                        activeClassName={s.active}>
                         Settings
-                </NavLink>
+                    </NavLink>
                 </div>
             </nav>
 
-            <ChosenFriends friendsList={chosenFriendsList}/>
+            <ChosenFriends friendsList={chosenFriendsList} />
         </div>
     )
 }

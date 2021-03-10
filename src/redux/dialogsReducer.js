@@ -28,18 +28,21 @@ const initialDialogsState = {
                 text: messageText,
             };
             
-            const stateCopy = Object.assign({}, state);
-            stateCopy.messages = [...state.messages]
-        
-            stateCopy.messages.push(newMassage);
-            stateCopy.newMessageValue = '';
+            const stateCopy = {
+                ...state,
+                newMessageValue: '',
+                messages: [...state.messages, newMassage]
+            };
+
             return stateCopy;
         }
 
         case UPDATE_NEW_MESSAGE_VALUE: {
-            const stateCopy = Object.assign({}, state);
+            const stateCopy = {
+                ...state,
+                newMessageValue: action.newValue
+            };
 
-            stateCopy.newMessageValue = action.newValue;
             return stateCopy;
         }
     }

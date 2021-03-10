@@ -12,7 +12,6 @@ const Messages = (props) => {
         message={message}
         />
     ))
-
     return (
         <div className={s.dialogMessages}>
             {messagesJSX}

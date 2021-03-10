@@ -4,7 +4,7 @@ import Post from './Post/Post.js'
 import NewPost from './NewPost/NewPost'
 
 const MyPosts = (props) => {
-    const postsJSX = props.posts.reverse().map((post) => (
+    const postsJSX = [...props.posts].reverse().map((post) => (
         <Post
             key={post.id}
             user={post.user}

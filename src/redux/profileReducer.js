@@ -25,15 +25,16 @@ const profileReducer = (state = initialProfileState, action) => {
                 likes: 0,
                 text: postText,
             };
-            if (state.newPostValue != '') {
-                const stateCopy = Object.assign({}, state);
-                stateCopy.posts = [...state.posts];
+            
+            const stateCopy = { 
+                ...state,
+                newPostValue: '',   
+                posts: [...state.posts, newPost],
+            
+            };
 
-                stateCopy.posts.push(newPost);
-                stateCopy.newPostValue = '';   
-                return stateCopy
-
-            }
+            return stateCopy
+            
         }
             
         case UPDATE_NEW_POST_VALUE: {

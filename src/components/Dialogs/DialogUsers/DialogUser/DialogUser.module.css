@@ -1,0 +1,18 @@
+.dialogUser {
+    display:  flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 5px 10px 10px;
+    border-bottom: 1px solid grey;
+    text-decoration: none;
+  }
+  
+  .dialogUser.active {
+    color:red;
+  }
+  
+  
+  
+  .dialogUser__name {
+    margin-left: 10px;
+  }

@@ -1,0 +1,10 @@
+.user {
+    display: flex;
+    width:100%;
+}
+
+.userMain {
+    display: flex;
+    justify-content: space-between;
+    width:70%;
+}

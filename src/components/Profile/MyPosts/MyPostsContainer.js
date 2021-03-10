@@ -1,7 +1,7 @@
 import React from 'react';
 import MyPosts from './MyPosts'
 import { addNewPostActionCreator, updateNewPostValueActionCreator } from './../../../redux/profileReducer';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 
 // classic way to create a container component 
