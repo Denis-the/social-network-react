@@ -11,7 +11,7 @@ const UsersItem = (props) => {
     return (
         <div className={s.user}>
             <div>
-                <div><UserAvatar imageUrl={props.user.avatar} /></div>
+                <div><UserAvatar imageUrl={props.user.photos.small} /></div>
                 <button 
                 type="button"
                 onClick={ onClickAction }>
