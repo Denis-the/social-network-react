@@ -6,8 +6,52 @@ import { followAC,
     setPerPageCountAC, 
     setTotalUsersCountAC, 
     setCurrentPageAC } from '../../redux/usersReducer';
+import React from 'react';
 import Users from './Users';
 
+
+class UsersAPIComponent extends React.Component {
+    componentDidMount() {
+        this.loadPage(this.props.currentPage);
+    }
+
+    changePerPageCount = (newCount) => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${1}&count=${newCount}`)
+        .then(response => {
+            const users = response.data.items;
+            const totalUsersCount = response.data.totalCount;
+            
+            this.props.setPerPageCount(newCount);
+            this.props.setUsers(users);
+            this.props.setTotalUsersCount(totalUsersCount);
+            this.props.setCurrentPage(1);
+        })  
+    }
+
+    loadPage = (pageNumber) => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.perPage}`)
+        .then(response => {
+            const users = response.data.items;
+            const totalUsersCount = response.data.totalCount;
+
+            this.props.setUsers(users);
+            this.props.setTotalUsersCount(totalUsersCount);
+            this.props.setCurrentPage(pageNumber);
+        })  
+    }
+
+    render() {
+        return <Users
+        users={this.props.users}
+        pagesTotal={this.props.pagesTotal}
+        currentPage={this.props.currentPage}
+        follow={this.props.follow}
+        unfollow={this.props.unfollow}
+        loadPage={this.loadPage}
+        changePerPageCount={this.changePerPageCount}
+        />
+    }
+}
 
 const mapStateToProps = (state) => {
     return {
@@ -21,44 +65,32 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changePerPageCount (newCount) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${1}&count=${newCount}`)
-            .then(response => {
-                const users = response.data.items;
-                const totalUsersCount = response.data.totalCount;
-
-                dispatch(setUsersAC(users));
-                dispatch(setPerPageCountAC(newCount));
-                dispatch(setTotalUsersCountAC(totalUsersCount));
-                dispatch(setCurrentPageAC(1))
-            })  
+        setPerPageCount(count) {
+            dispatch(setPerPageCountAC(count))
         },
 
-        loadPage (pageNumber) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.perPage}`)
-            .then(response => {
-                const users = response.data.items;
-                const totalUsersCount = response.data.totalCount;
+        setCurrentPage(pageNumber){
+            dispatch(setCurrentPageAC(pageNumber));
+        },
 
-                dispatch(setUsersAC(users));
-                dispatch(setTotalUsersCountAC(totalUsersCount));
-                dispatch(setCurrentPageAC(pageNumber))
-            })  
-        
+        setTotalUsersCount(totalUsersCount) {
+            dispatch(setTotalUsersCountAC(totalUsersCount));
+        },
+
+        setUsers(users){
+            dispatch(setUsersAC(users));
         },
 
         follow (userId) {
-            const action = followAC(userId);
-            dispatch(action);
+            dispatch(followAC(userId));
         },
 
         unfollow (userId) {
-            const action = unfollowAC(userId);
-            dispatch(action);
+            dispatch(unfollowAC(userId));
         },
     }
 }
 
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
 export default UsersContainer;
