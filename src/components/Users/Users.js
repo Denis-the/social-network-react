@@ -23,32 +23,31 @@ const Users = (props) => {
 
             {props.currentPage}/{props.pagesTotal}
 
-            <div>
+            <div className={s.navButtons}>
                 <button key={'start'}
-                    className={s.navBtn}
-                    onClick={() => props.loadPage(1)}>
+                    className={`${s.navBtn}` + " " + `${(props.currentPage === 1) ? s.navBtnIncative : ''}`}
+                    onClick={() => {props.loadPage(1)}}>
                     start
                 </button>
                 <button key={'prev'}
-                    className={s.navBtn}
-                    onClick={() => props.loadPage(props.currentPage - 1)}>
+                    className={`${s.navBtn}` + " " + `${(props.currentPage === 1) ? s.navBtnIncative : ''}`}
+                    onClick={() => {props.loadPage(props.currentPage - 1)}}>
                     prev
                 </button>
                 <button key={'next'}
-                    className={s.navBtn}
-                    onClick={() => props.loadPage(props.currentPage + 1)}>
+                    className={`${s.navBtn}` + " " + `${(props.currentPage === props.pagesTotal) ? s.navBtnIncative : ''}`}
+                    onClick={() => {props.loadPage(props.currentPage + 1)}}>
                     next
                 </button>
                 <button key={'end'}
-                    className={s.navBtn}
-                    onClick={() => props.loadPage(props.pagesTotal)}>
+                    className={`${s.navBtn}` + " " + `${(props.currentPage === props.pagesTotal) ? s.navBtnIncative : ''}`}
+                    onClick={() => {props.loadPage(props.pagesTotal)}}>
                     end
                 </button>
 
             </div>
         </div>
     )
-
 
     return (
         <div>
