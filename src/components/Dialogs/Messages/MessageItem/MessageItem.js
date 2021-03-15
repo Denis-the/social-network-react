@@ -1,5 +1,5 @@
 import React from 'react';
-import UserAvatar from '../../../Profile/UserAvatar/UserAvatar';
+import UserAvatar from '../../../common/UserAvatar/UserAvatar';
 import s from './MessageItem.module.css'; 
 
 

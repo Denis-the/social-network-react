@@ -1,6 +1,6 @@
 import s from './DialogUser.module.css'
 import {NavLink} from 'react-router-dom';
-import UserAvatar from '../../../Profile/UserAvatar/UserAvatar';
+import UserAvatar from '../../../common/UserAvatar/UserAvatar';
 
 
 

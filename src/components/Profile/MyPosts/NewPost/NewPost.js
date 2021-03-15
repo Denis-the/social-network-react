@@ -5,8 +5,9 @@ import s from  './NewPost.module.css';
 
 const NewPost = (props) => {
     const onAddPost = () => {
-        props.addPost()
+        props.addNewPost()
     }
+
     const onUpdateNewPostValue = (e) => {
         const newValue = e.target.value;
         props.updateNewPostValue(newValue);

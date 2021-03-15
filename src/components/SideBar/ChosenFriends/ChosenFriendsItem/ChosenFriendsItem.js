@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import UserAvatar from '../../../Profile/UserAvatar/UserAvatar';
+import UserAvatar from '../../../common/UserAvatar/UserAvatar';
 import s from './ChosenFriendsItem.module.css'
 
 

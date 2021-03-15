@@ -20,7 +20,7 @@ const MyPosts = (props) => {
                 <NewPost 
                 newPostValue={props.newPostValue}
                 updateNewPostValue={props.updateNewPostValue}
-                addPost={props.addPost} 
+                addNewPost={props.addNewPost} 
                 />
 
                 <div className={s.posts}>

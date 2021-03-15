@@ -11,7 +11,6 @@ import {
 } from '../../redux/usersReducer';
 import React from 'react';
 import Users from './Users';
-import preloader from '../../assets/images/preloader.svg'
 import Preloader from '../common/Preloader/Preloader';
 
 class UsersAPIComponent extends React.Component {
@@ -82,5 +81,5 @@ const mapStateToProps = (state) => {
 const UsersContainer = connect(mapStateToProps, 
     { follow, unfollow, setUsers, setPerPageCount, setTotalUsersCount, setCurrentPage, toggleIsFetching })
     (UsersAPIComponent);
-    
+
 export default UsersContainer;

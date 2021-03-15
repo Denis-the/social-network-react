@@ -1,6 +1,6 @@
 import React from 'react';
 import s from  './Post.module.css';
-import UserAvatar from './../../UserAvatar/UserAvatar.js'
+import UserAvatar from '../../../common/UserAvatar/UserAvatar.js'
 
 const Post = (props) => {
     return (

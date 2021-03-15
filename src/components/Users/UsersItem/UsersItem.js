@@ -1,4 +1,4 @@
-import UserAvatar from '../../Profile/UserAvatar/UserAvatar';
+import UserAvatar from '../../common/UserAvatar/UserAvatar';
 import s from './UsersItem.module.css';
 
 const UsersItem = (props) => {

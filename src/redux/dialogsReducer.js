@@ -50,8 +50,8 @@ const initialDialogsState = {
     return state 
 }
 
-export const sendNewMessageActionCreator = () => ({type:SEND_NEW_MESSAGE});
-export const updateNewMessageValueActionCreator = (newValue) => ({
+export const sendNewMessage = () => ({type:SEND_NEW_MESSAGE});
+export const updateNewMessageValue = (newValue) => ({
     type:UPDATE_NEW_MESSAGE_VALUE, newValue: newValue});
 
 
