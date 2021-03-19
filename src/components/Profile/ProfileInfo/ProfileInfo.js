@@ -1,13 +1,20 @@
-import s from  './ProfileInfo.module.css';
+import s from "./ProfileInfo.module.css"
+import UserAvatar from "../../common/UserAvatar/UserAvatar";
 
 
 const ProfileInfo = (props) => {
 
     return (
-        <div className={s.info}>ava+info</div>
+        <div>
+            <img 
+            className={s.avatar}
+            src={props.profileInfo.photos.large}/>
+            <div>
+                {props.profileInfo.fullName}
+                
+            </div>
+        </div>
     )
 }
 
-
-
-export default ProfileInfo;
+export default ProfileInfo

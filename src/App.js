@@ -3,10 +3,10 @@ import './App.css';
 import React from 'react'
 import Header from './components/Header/Header.js'
 import SideBar from './components/SideBar/SideBar.js'
-import Profile from './components/Profile/Profile.js'
 import Dialogs from './components/Dialogs/Dialogs.js';
 import { Route, Switch } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
 
 
 function App(props) {
@@ -18,19 +18,19 @@ function App(props) {
 
       <div className="app-wrapper__content">
         <Switch>
-          <Route exact
+          <Route 
             path='/profile'
             render={() => (
-              <Profile />
+              <ProfileContainer />
             )}
           />
-          <Route exact
+          <Route 
             path='/dialogs'
             render={() => (
               <Dialogs />
             )}
           />
-          <Route exact
+          <Route 
             path='/users'
             render={() => (
               <UsersContainer />

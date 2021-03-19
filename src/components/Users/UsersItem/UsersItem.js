@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import UserAvatar from '../../common/UserAvatar/UserAvatar';
 import s from './UsersItem.module.css';
 
@@ -11,7 +12,11 @@ const UsersItem = (props) => {
     return (
         <div className={s.user}>
             <div>
-                <div><UserAvatar imageUrl={props.user.photos.small} /></div>
+                <div>
+                    <NavLink to={ '/profile/' + props.user.id }>
+                        <UserAvatar imageUrl={props.user.photos.small} />
+                    </NavLink>
+                </div>
                 <button 
                 type="button"
                 onClick={ onClickAction }>
