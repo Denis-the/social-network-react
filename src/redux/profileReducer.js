@@ -8,7 +8,6 @@ const initialProfileState = {
         profileInfo:  null,
         newPostValue: '',
         isFetching: false,
-        profileId: 2,
 }
 
 

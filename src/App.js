@@ -19,7 +19,7 @@ function App(props) {
       <div className="app-wrapper__content">
         <Switch>
           <Route 
-            path='/profile'
+            path='/profile/:userId?'
             render={() => (
               <ProfileContainer />
             )}

@@ -1,5 +1,4 @@
 import s from "./ProfileInfo.module.css"
-import UserAvatar from "../../common/UserAvatar/UserAvatar";
 
 
 const ProfileInfo = (props) => {
