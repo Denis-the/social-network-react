@@ -1,19 +1,19 @@
 
 import './App.css';
 import React from 'react'
-import Header from './components/Header/Header.js'
 import SideBar from './components/SideBar/SideBar.js'
 import Dialogs from './components/Dialogs/Dialogs.js';
 import { Route, Switch } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 
 function App(props) {
   return (
 
     <div className="app-wrapper">
-      <Header />
+      <HeaderContainer />
       <SideBar store={props.store} />
 
       <div className="app-wrapper__content">

@@ -16,12 +16,13 @@ class ProfileAPIContainer extends React.Component {
         this.props.toggleIsFetching(true);
         let userId = this.props.match.params.userId;
         if (!userId) userId = 2;
-
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-        .then((response) => {
-            this.props.setProfile(response.data);
-            this.props.toggleIsFetching(false);     
-        })
+            .then((response) => {
+                this.props.setProfile(response.data);
+                this.props.toggleIsFetching(false);
+            })
+
+
     }
 
     render() {
@@ -42,9 +43,9 @@ class ProfileAPIContainer extends React.Component {
 const withURLDataContainerComponent = withRouter(ProfileAPIContainer)
 
 const mapStateToProps = (state) => ({
-        profileInfo: state.profileData.profileInfo,
-        isFetching:state.profileData.isFetching,
-    })
+    profileInfo: state.profileData.profileInfo,
+    isFetching: state.profileData.isFetching,
+})
 
 const ProfileContainer = connect(mapStateToProps, {
     addNewPost, updateNewPostValue, setProfile, toggleIsFetching

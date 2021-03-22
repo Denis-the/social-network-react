@@ -1,9 +1,12 @@
 .header {
-    grid-area: h;
-  
-    background-color: greenyellow;
-  }
-  
-  .site-logo {
-    height:60px;
-  }
+  grid-area: h;
+  background-color: greenyellow;
+}
+
+.siteLogo {
+  height: 60px;
+}
+
+.loginBlock {
+  float:right
+}
