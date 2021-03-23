@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
+import { usersAPI } from '../../api/api';
 
 class UsersAPIComponent extends React.Component {
     componentDidMount() {
@@ -20,10 +21,10 @@ class UsersAPIComponent extends React.Component {
 
     changePerPageCount = (newCount) => {
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${1}&count=${newCount}`)
-            .then(response => {
-                const users = response.data.items;
-                const totalUsersCount = response.data.totalCount;
+        usersAPI.getUsers(1, newCount)
+            .then(data => {
+                const users = data.items;
+                const totalUsersCount = data.totalCount;
 
                 this.props.setPerPageCount(newCount);
                 this.props.setUsers(users);
@@ -36,16 +37,35 @@ class UsersAPIComponent extends React.Component {
     loadPage = (pageNumber) => {
         if (pageNumber < 1 || (pageNumber > this.props.pagesTotal && this.props.pagesTotal > 0)) return;
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.perPage}`)
-            .then(response => {
-                const users = response.data.items;
-                const totalUsersCount = response.data.totalCount;
+        usersAPI.getUsers(pageNumber, this.props.perPage).then( data => {
+                const users = data.items;
+                const totalUsersCount = data.totalCount;
 
                 this.props.toggleIsFetching(false);
                 this.props.setUsers(users);
                 this.props.setTotalUsersCount(totalUsersCount);
                 this.props.setCurrentPage(pageNumber);
             })
+    }
+
+    followAction = (userId) => {
+        this.props.toggleIsFetching(true);
+        usersAPI.followUser(userId).then(
+                data => {
+                    this.props.toggleIsFetching(false);
+                    if (data.resultCode === 0) this.props.follow(userId)
+                }
+            )
+    }
+
+    unfollowAction = (userId) => {
+        this.props.toggleIsFetching(true);
+        usersAPI.unfollowUser(userId).then(
+            data => {
+                this.props.toggleIsFetching(false);
+                if (data.resultCode === 0) this.props.unfollow(userId);
+            }
+        )
     }
 
     render() {
@@ -57,8 +77,8 @@ class UsersAPIComponent extends React.Component {
                     users={this.props.users}
                     pagesTotal={this.props.pagesTotal}
                     currentPage={this.props.currentPage}
-                    follow={this.props.follow}
-                    unfollow={this.props.unfollow}
+                    follow={this.followAction}
+                    unfollow={this.unfollowAction}
                     loadPage={this.loadPage}
                     changePerPageCount={this.changePerPageCount}
                 />

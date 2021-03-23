@@ -6,7 +6,8 @@ const Users = (props) => {
         <UsersItem
             key={user.id}
             user={user}
-            followBTNAction={(user.isFollowing) ? props.unfollow : props.follow}
+            follow={props.follow}
+            unfollow={props.unfollow}
         />
     ))
 

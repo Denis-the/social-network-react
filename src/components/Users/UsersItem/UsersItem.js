@@ -1,32 +1,40 @@
+import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import UserAvatar from '../../common/UserAvatar/UserAvatar';
 import s from './UsersItem.module.css';
 
 const UsersItem = (props) => {
+    const user = props.user;
 
-    const onClickAction = () => {
-        props.followBTNAction(props.user.id);
+    const btnFollow = () => {
+        props.follow(user.id)
     }
+
+    const btnUnfollow = () => {
+        props.unfollow(user.id)
+    }
+
 
 
     return (
         <div className={s.user}>
             <div>
                 <div>
-                    <NavLink to={ '/profile/' + props.user.id }>
-                        <UserAvatar imageUrl={props.user.photos.small} />
+                    <NavLink to={'/profile/' + user.id}>
+                        <UserAvatar imageUrl={user.photos.small} />
                     </NavLink>
                 </div>
-                <button 
-                type="button"
-                onClick={ onClickAction }>
-                    { (props.user.isFollowing) ? 'UNFOLLOW' : 'FOLLOW' }
-                </button>
+
+                {(props.user.followed)
+                    ? <button onClick={ btnUnfollow }>UnFollow</button>
+                    : <button onClick={ btnFollow }>Follow</button>
+                }
+
             </div>
             <div className={s.userMain}>
                 <div>
-                    <div>{ props.user.name }</div>
-                    <div>{ props.user.status }</div>
+                    <div>{user.name}</div>
+                    <div>{user.status}</div>
                 </div>
                 <div>
                     <div>
