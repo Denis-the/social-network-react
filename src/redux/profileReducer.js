@@ -70,13 +70,11 @@ export const toggleIsFetching = (isFetching) => ({
 })
 
 // thunks
-export const loadProfile = (userId) => {
+export const getProfile = (userId) => {
     return (dispatch, getState) => {
         dispatch(toggleIsFetching(true));
 
-        const profileId = userId || getState().auth.userId || 2;
-
-        profileAPI.getProfileData(profileId).then((data) => {
+        profileAPI.getProfileData(userId).then((data) => {
                 dispatch(setProfile(data));
                 dispatch(toggleIsFetching(false));
             },

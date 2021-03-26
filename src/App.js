@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import LoginContainerConnected from './components/Login/LoginContainer';
 
 
 function App(props) {
@@ -34,6 +35,13 @@ function App(props) {
             path='/users'
             render={() => (
               <UsersContainer />
+            )}
+          />
+
+          <Route 
+            path='/login'
+            render={() => (
+              <LoginContainerConnected />
             )}
           />
         </Switch>

@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loadProfile } from '../../redux/profileReducer';
+import { getProfile } from '../../redux/profileReducer';
 import Profile from './Profile';
-import { withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
+import LoginRedirectWrapper from '../../HOCs/RedirectConteiner/RedirectContainer';
 
-class ProfileAPIContainer extends React.Component {
+class ProfileContainer extends React.Component {
     componentDidMount() {
         this.loadProfile();
     }
 
     loadProfile() {
-        this.props.loadProfile(this.props.match.params.userId);
+        const profileId = this.props.match.params.userId || this.props.authId;
+        this.props.getProfile(profileId);
     }
 
     render() {
@@ -25,15 +27,20 @@ class ProfileAPIContainer extends React.Component {
     }
 }
 
-const withURLDataContainerComponent = withRouter(ProfileAPIContainer)
 
 const mapStateToProps = (state) => ({
     profileInfo: state.profileData.profileInfo,
     isFetching: state.profileData.isFetching,
-    authId: state.auth.userId
+    authId: state.auth.userId,
 })
 
-const ProfileContainer = connect(mapStateToProps, {loadProfile})(withURLDataContainerComponent);
+const mapAuthToProps = (state) => ({
+    isAuth: state.auth.isAuth,
+})
 
-export default ProfileContainer
+const withURLContainer = withRouter(ProfileContainer);
+const withLoginRedirectContainer = connect(mapAuthToProps, {})(LoginRedirectWrapper(withURLContainer));
+const ProfileContainerConnected = connect(mapStateToProps, {getProfile})(withLoginRedirectContainer);
+
+export default ProfileContainerConnected
 

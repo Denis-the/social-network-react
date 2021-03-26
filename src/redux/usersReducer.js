@@ -138,7 +138,6 @@ export const deleteFollowingProgress = (userId) => ({
 // thunks
 export const getUsersTC = (pageNumber, perPage, pagesTotal) => {
     return (dispatch) => {
-        debugger
         if (pageNumber < 1 || (pageNumber > pagesTotal && pagesTotal > 0)) return;
         dispatch(toggleIsFetching(true));
         usersAPI.getUsers(pageNumber, perPage).then(data => {

@@ -1,8 +1,6 @@
 import { authAPI } from "../api/api";
 
 const SET_USER_DATA = 'SET-USER-DATA';
-const CLEAR_USER_DATA = 'CLEAR-USER-DATA';
-const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
 
 const initialState = {
     isFetching: false,
@@ -22,14 +20,6 @@ const authReducer = (state = initialState, action) => {
                 login: action.login,
                 email: action.email,
                 isAuth: action.isAuth
-            }
-        }
-        case CLEAR_USER_DATA: {
-            return {
-                ...state,
-                userId: null,
-                login: null,
-                email: null,
             }
         }
     }
