@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import UserAvatar from '../../common/UserAvatar/UserAvatar';
 import s from './UsersItem.module.css';

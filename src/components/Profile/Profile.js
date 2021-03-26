@@ -13,8 +13,6 @@ const Profile = (props) => {
             profileInfo={props.profileInfo}
             /> : null}
             
-            
-
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { usersAPI } from "../api/api";
 
 const SET_USERS = "SET-USERS";
 const SET_PER_PAGE_COUNT = 'SET-PER-PAGE-COUNT';
@@ -7,7 +7,8 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING";
-
+const ADD_FOLLOWING_IN_PROGRESS = "ADD-FOLLOWING-IN-PROGRESS";
+const DELETE_FOLLOWING_IN_PROGRESS = "DELETE-FOLLOWING-IN-PROGRESS";
 
 const initialUsersState = {
     users: [],
@@ -15,6 +16,7 @@ const initialUsersState = {
     currentPage: 1,
     totalUsersCount: 0,
     isFetching: false,
+    followingInProgress: new Set(),
 }
 
 
@@ -60,6 +62,18 @@ const usersReducer = (state = initialUsersState, action) => {
 
             return stateCopy
         }
+        case ADD_FOLLOWING_IN_PROGRESS: {
+            const setCopy = new Set(state.FollowingInProgress);
+            setCopy.add(action.userId);
+            return {...state, followingInProgress:setCopy}
+        }
+        case DELETE_FOLLOWING_IN_PROGRESS: {
+            const setCopy = new Set(state.followingInProgress);
+            console.log(setCopy)
+            setCopy.delete(action.userId);
+            return {...state, followingInProgress:setCopy}
+        }
+
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.isFetching}
 
@@ -70,6 +84,7 @@ const usersReducer = (state = initialUsersState, action) => {
     return state;
 }
 
+// action creators
 export const setPerPageCount = (newCount) => {
     return {
         type: SET_PER_PAGE_COUNT,
@@ -112,5 +127,59 @@ export const toggleIsFetching = (isFetching) => {
         isFetching: isFetching,
     }
 }
+export const addFollowingProgress = (userId) => ({
+    type:ADD_FOLLOWING_IN_PROGRESS, userId
+})
+export const deleteFollowingProgress = (userId) => ({
+    type:DELETE_FOLLOWING_IN_PROGRESS, userId
+})
+
+
+// thunks
+export const getUsersTC = (pageNumber, perPage, pagesTotal) => {
+    return (dispatch) => {
+        debugger
+        if (pageNumber < 1 || (pageNumber > pagesTotal && pagesTotal > 0)) return;
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers(pageNumber, perPage).then(data => {
+            const users = data.items;
+            const totalUsersCount = data.totalCount;
+
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(users));
+            dispatch(setTotalUsersCount(totalUsersCount));
+            dispatch(setCurrentPage(pageNumber));
+            dispatch(setPerPageCount(perPage));
+        })
+    }
+}
+
+export const followTC = (userId) => {
+    return (dispatch, getState) => {
+        if (getState().usersReducer.followingInProgress.has(userId)) return;
+        dispatch(addFollowingProgress(userId));
+        usersAPI.followUser(userId).then(
+                data => {
+                    dispatch(deleteFollowingProgress(userId));
+                    if (data.resultCode === 0) dispatch(follow(userId));
+                }
+            )
+    }
+}
+
+export const unfollowTC = (userId) => {
+    return (dispatch, getState) => {
+        if (getState().usersReducer.followingInProgress.has(userId)) return;
+        dispatch(addFollowingProgress(userId));
+        usersAPI.unfollowUser(userId).then(
+                data => {
+                    dispatch(deleteFollowingProgress(userId));
+                    if (data.resultCode === 0) dispatch(unfollow(userId));
+                }
+            )
+    }
+}
+
+
 
 export default usersReducer;

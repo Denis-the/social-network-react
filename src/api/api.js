@@ -27,5 +27,11 @@ export const usersAPI = {
 export const authAPI = {
     authMe() {
         return instance.get('https://social-network.samuraijs.com/api/1.0/auth/me').then(response => response.data)
+    },
+}
+
+export const profileAPI = {
+    getProfileData(userId) {
+        return axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then( response => response.data )
     }
 }

@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import {
-    setProfile, addNewPost, updateNewPostValue, toggleIsFetching
-} from '../../redux/profileReducer';
+import { loadProfile } from '../../redux/profileReducer';
 import Profile from './Profile';
 import { withRouter } from 'react-router';
 
@@ -13,16 +10,7 @@ class ProfileAPIContainer extends React.Component {
     }
 
     loadProfile() {
-        this.props.toggleIsFetching(true);
-        let userId = this.props.match.params.userId;
-        if (!userId) userId = 2;
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then((response) => {
-                this.props.setProfile(response.data);
-                this.props.toggleIsFetching(false);
-            })
-
-
+        this.props.loadProfile(this.props.match.params.userId);
     }
 
     render() {
@@ -34,22 +22,18 @@ class ProfileAPIContainer extends React.Component {
                 updateNewPostValue={this.props.updateNewPostValue}
             />
         )
-
     }
-
 }
-
 
 const withURLDataContainerComponent = withRouter(ProfileAPIContainer)
 
 const mapStateToProps = (state) => ({
     profileInfo: state.profileData.profileInfo,
     isFetching: state.profileData.isFetching,
+    authId: state.auth.userId
 })
 
-const ProfileContainer = connect(mapStateToProps, {
-    addNewPost, updateNewPostValue, setProfile, toggleIsFetching
-})(withURLDataContainerComponent)
+const ProfileContainer = connect(mapStateToProps, {loadProfile})(withURLDataContainerComponent);
 
 export default ProfileContainer
 

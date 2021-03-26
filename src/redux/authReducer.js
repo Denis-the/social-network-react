@@ -1,3 +1,5 @@
+import { authAPI } from "../api/api";
+
 const SET_USER_DATA = 'SET-USER-DATA';
 const CLEAR_USER_DATA = 'CLEAR-USER-DATA';
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING';
@@ -34,7 +36,8 @@ const authReducer = (state = initialState, action) => {
     return state;
 }
 
-export const setUserData = (userId, login, email) => {
+// action creators
+export const setAuthMeProfileData = (userId, login, email) => {
     return {
     type: SET_USER_DATA, 
     userId, 
@@ -43,6 +46,18 @@ export const setUserData = (userId, login, email) => {
     isAuth:true
 }}
 
+
+// thunks
+export const getAuthUserData = () => {
+    return (dispatch) => {
+        authAPI.authMe().then( (data) => {
+                if (data.resultCode === 1) throw new Error('Already authorized');
+                const {id, login, email} = data.data;
+                dispatch(setAuthMeProfileData(id, login, email));
+            }
+        )
+    }
+}
 
 
 
