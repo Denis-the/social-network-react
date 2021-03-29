@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import { getUsersTC, followTC, unfollowTC } from '../../redux/usersReducer';
 import React from 'react';
+import { compose } from 'redux';
+import { getUsersTC, followTC, unfollowTC } from '../../redux/usersReducer';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
 
-class UsersAPIComponent extends React.Component {
+class UsersContainer extends React.Component {
     componentDidMount() {
         this.loadPage(this.props.currentPage);
     }
@@ -57,6 +58,9 @@ const mapStateToProps = (state) => {
 }
 
 
-const UsersContainer = connect(mapStateToProps,{getUsersTC, followTC, unfollowTC})(UsersAPIComponent);
+// const UsersContainer = connect(mapStateToProps,{getUsersTC, followTC, unfollowTC})(UsersAPIComponent);
+// export default UsersContainer;
 
-export default UsersContainer;
+export default compose(
+    connect(mapStateToProps,{getUsersTC, followTC, unfollowTC}),
+)(UsersContainer)

@@ -2,8 +2,6 @@ import Preloader from '../common/Preloader/Preloader'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 
 const Profile = (props) => {
-    console.log(props.profileInfo)
-
     return (
         <div>
             { (props.isFetching) ? <Preloader/> : null }
@@ -11,6 +9,8 @@ const Profile = (props) => {
             { (props.profileInfo) ? 
             <ProfileInfo 
             profileInfo={props.profileInfo}
+            changeStatus={props.changeStatus}
+            status={props.status}
             /> : null}
             
         </div>
