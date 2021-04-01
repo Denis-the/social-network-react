@@ -1,5 +1,6 @@
 import s from "./ProfileInfo.module.css"
 import ProfileStatus from "./profileStatus/ProfileStatus";
+import ProfileStatusWithHooks from "./profileStatus/ProfileStatusWithHooks";
 
 
 const ProfileInfo = (props) => {
@@ -14,6 +15,9 @@ const ProfileInfo = (props) => {
                 <ProfileStatus 
                 changeStatus={props.changeStatus}
                 status={props.status} ></ProfileStatus>
+                <ProfileStatusWithHooks
+                changeStatus={props.changeStatus}
+                status={props.status} ></ProfileStatusWithHooks>
             </div>
         </div>
     )

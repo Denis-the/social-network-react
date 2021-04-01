@@ -7,7 +7,15 @@ class ProfileStatus extends React.Component {
 
         this.state = {
             isEditing: false,
-            inputValue: this.props.status || '',
+            inputValue: this.props.status || null,
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.status != prevProps.status) {
+            this.setState({
+                inputValue: this.props.status
+            })
         }
     }
 
@@ -41,7 +49,7 @@ class ProfileStatus extends React.Component {
             <div>
                 { !this.state.isEditing ?
                     <div onDoubleClick={this.displayEditInput}>
-                        status: {this.props.status}
+                        status: {this.props.status || 'no status'}
                     </div>
                     :
                     <div>
@@ -51,6 +59,9 @@ class ProfileStatus extends React.Component {
                         <button
                             onClick={this.saveChangedStatus}
                         >save</button>
+                        <button
+                            onClick={this.hideEditInput}
+                        >close</button>
                     </div>
                 }
             </div>
