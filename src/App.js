@@ -5,12 +5,17 @@ import SideBar from './components/SideBar/SideBar.js'
 import Dialogs from './components/Dialogs/Dialogs.js';
 import { Route, Switch } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
+import ProfileContainer from './components/Profile/ProfileContainerWithHooks';
 import HeaderContainer from './components/Header/HeaderContainer';
-import LoginContainerConnected from './components/Login/LoginContainer';
+import Login from './components/Login/Login';
+import { useDispatch } from 'react-redux';
+import { getAuthUserData } from './redux/authReducer';
 
 
 function App(props) {
+  const dispatch = useDispatch()
+  dispatch(getAuthUserData())
+
   return (
 
     <div className="app-wrapper">
@@ -41,7 +46,7 @@ function App(props) {
           <Route 
             path='/login'
             render={() => (
-              <LoginContainerConnected />
+              <Login />
             )}
           />
         </Switch>

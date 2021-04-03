@@ -83,8 +83,8 @@ export const getProfile = (userId) => {
         dispatch(toggleIsFetching(true));
 
         profileAPI.getProfileData(userId).then((data) => {
-                dispatch(setProfile(data));
                 dispatch(toggleIsFetching(false));
+                dispatch(setProfile(data)); 
             },
             (error) => {
                 dispatch(toggleIsFetching(false));
@@ -99,8 +99,8 @@ export const changeStatus = (newStatus) => {
 
         // validateStatus (max length = 300)
         profileAPI.setStatus(newStatus).then((data) => {
-            if (data.resultCode !== 0) return;
             dispatch(toggleIsFetching(false));
+            if (data.resultCode !== 0) return;
             dispatch(setStatus(newStatus));
         })
 

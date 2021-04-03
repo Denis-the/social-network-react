@@ -11,7 +11,11 @@ const Header = (props) => {
             <img className={s.siteLogo} src={logo}></img>
 
             <div className={s.loginBlock}>
-                { props.userId ? props.login 
+                { props.userId ? 
+                <div>
+                    {props.login}<br/>
+                    <button onClick={props.logoutFromServer}>Logout</button>
+                </div> 
                 : <NavLink to='/login'>Login</NavLink>}
                 
             </div>
