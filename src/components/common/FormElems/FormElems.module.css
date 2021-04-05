@@ -1,0 +1,41 @@
+
+.formControl { 
+    z-index: 0;
+    display: inline-block;
+    position: relative;
+}
+
+.formControl__field {
+}
+
+.formControl__fieldError {
+    border: 2px solid red;
+}
+
+.formControl__error {
+    position: absolute;
+    right:5%;
+    bottom: 20%;
+    height: 65%;
+}
+
+
+.formControl__errorIcon {
+    height: 100%;
+}
+
+
+.formControl__errorMessage {
+    position: absolute;
+    bottom:20px;
+    left: 5px;
+    min-width: 100px;
+    padding: 5px 10px;
+    
+    border: 1px solid #000;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-align: center;
+    background-color: #fff;
+    opacity: 90%;
+}
