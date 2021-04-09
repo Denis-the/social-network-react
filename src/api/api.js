@@ -33,7 +33,10 @@ export const authAPI = {
     },
     async logout() {
         return instance.delete('auth/login').then(response => response.data)
-    }
+    },    
+    async getCaptchaUrl(userId) {
+        return instance.get('security/get-captcha-url').then(response => response.data)
+    },
 }
 
 export const profileAPI = {
@@ -45,5 +48,5 @@ export const profileAPI = {
     },
     async setStatus(newStatus) {
         return instance.put('profile/status', {status:newStatus}).then( response => response.data )
-    }
+    },
 }

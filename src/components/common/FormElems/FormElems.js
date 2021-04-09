@@ -8,7 +8,7 @@ const FormControl = ({input, meta, children, ...props}) => {
     const childClass = s.formControl__field + ' ' + `${hasError ? s.formControl__fieldError : ''}`    
     return (
         <div className={s.formControl}>
-            {children({...input, meta, ...props, className:childClass})}
+            {children({...input, ...props, className:childClass})}
             {hasError && 
                 <div className={s.formControl__error}>
                     <img 
@@ -21,7 +21,7 @@ const FormControl = ({input, meta, children, ...props}) => {
     )
 }
 
-export const InputField = (props) => {
+export const InputFormElem = (props) => {
     return <FormControl {...props} >
             { props => {
                 return <input {...props}/>
@@ -29,3 +29,21 @@ export const InputField = (props) => {
             }</FormControl>
 }
 
+export const TextareaFormElem = (props) => {
+    return <FormControl {...props} >
+            { props => {
+                return <textarea {...props}/>
+                }
+            }</FormControl>
+}
+
+export const SelectFormElem = ({children, ...props}) => {
+    return <FormControl {...props} >
+            { props => {
+                return (
+                <select {...props}>
+                    {children}
+                </select>
+                )}
+            }</FormControl>
+}

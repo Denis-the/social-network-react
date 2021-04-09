@@ -24,20 +24,7 @@ const useConnect = () => {
 }
 
 const ProfileContainer = (props) => {
-    // const status = useSelector( state => state.profileData.status);
-    // const profileInfo = useSelector( state => state.profileData.profileInfo);
-    // const isFetching = useSelector( state => state.profileData.isFetching);
-    // const authId = useSelector( state => state.auth.userId);
-    // const dispatch = useDispatch();
-
-    // useEffect( () => {
-    //     dispatch(getProfile(props.match.params.userId || authId));
-    //     dispatch(getStatus(props.match.params.userId || authId));
-    // }, [props.match.params.userId, authId]);
-
-    // const changeStatusAPI = (status) => {
-    //     dispatch(changeStatus(status));
-    // }
+    
 
     const { status, profileInfo, isFetching, authId,
         getProfile, getStatus, changeStatus } = useConnect()

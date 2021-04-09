@@ -5,6 +5,13 @@ export const requiredField = value => {
     else return 'Field is reqired';
 }
 
+export const numberField = value => {
+    return value => {
+        if (value) return;
+        else return 'may contain only numbers' 
+    }
+}
+
 export const maxLengthFieldCreator = (maxLength) => {
     return (value) => {
         if (value && value.length <= maxLength) return undefined
@@ -22,4 +29,4 @@ export const minLengthFieldCreator = (minLength) => {
 
 export const composeValidators = (...validators) => value => {
     return validators.reduce((error, validator) => error || validator(value), undefined)
-} 
+}

@@ -15,8 +15,8 @@
 .formControl__error {
     position: absolute;
     right:5%;
-    bottom: 20%;
-    height: 65%;
+    bottom: calc(5px + 5%);
+    height: 15px;
 }
 
 
