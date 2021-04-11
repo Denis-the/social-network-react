@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import MessagesContainer from './Messages/MessagesContainer';
 import DialogUsersContainer from './DialogUsers/DialogUsersContainer';
+import LoginRedirectWrapper from '../../hoc/LoginRedirectWrapper/LoginRedirectWrapper';
 
 
 const Dialogs = (props)=> {
@@ -16,4 +17,4 @@ const Dialogs = (props)=> {
     )
 }
 
-export default Dialogs;
+export default LoginRedirectWrapper(Dialogs);
