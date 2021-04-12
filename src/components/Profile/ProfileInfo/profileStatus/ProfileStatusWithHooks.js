@@ -1,57 +1,55 @@
-import {useEffect, useState} from 'react';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { Field, Form } from 'react-final-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeStatus } from '../../../../redux/profileReducer';
+import { getStatus } from '../../../../redux/selectors/profileSelectors';
+import { maxLengthFieldCreator } from '../../../../utils/validators/validators';
+import { ButtonFormElem, InputFormElem } from '../../../common/FormElems/FormElems';
 
+const maxLengthField_300 = maxLengthFieldCreator(300);
 
-const useProfileStatus = () => {
-    const status = useSelector( state => state.profileData.status )
-    const [editInputValue, setEditInputValue] = useState(status)
-    useEffect(() => {
-        setEditInputValue(status);
-    }, [status])
-
-    return [editInputValue, setEditInputValue]
+const StatusForm = ({onClose}) => {
+    const status = useSelector(getStatus);
+    const dispatch = useDispatch();
+    const saveStatus = (status) => {
+        dispatch(changeStatus(status));
+        onClose();
+    }
+    
+    return (
+        <Form
+        onSubmit={ (fields) => {
+            saveStatus(fields.status);
+        }}
+        initialValues={{status:status}}
+        > 
+        {({form, handleSubmit, submitError}) => {
+        return (<form onSubmit={handleSubmit}>
+            <Field name='status' component={InputFormElem} validate={maxLengthField_300}/>
+            <Field name='save' component={ButtonFormElem} type='submit'>save</Field>
+            <Field name='cancel' component={ButtonFormElem} type='button' onClick={onClose}>cancel</Field>
+            { submitError && <p>{submitError}</p>}
+        </form>
+        )}}</Form>
+    )
 }
- 
 
-const ProfileStatusWithHooks = ({changeStatus}) => {
-    const [editMode, setEditMode] = useState(false)
-    const [statusInputValue, setStatusInputValue] = useProfileStatus()
-    const [status] = useProfileStatus()
- 
+const ProfileStatusWithHooks = (props) => {
+    const [editMode, setEditMode] = useState(false);
+    const status = useSelector(getStatus);
+
     const toggleEditMode = () => {
-        setEditMode(!editMode)
+        setEditMode(!editMode);
     }
-
-    const updateStatusInputValue = (e) => {
-        setStatusInputValue(e.target.value);
-    }
-
-    const saveStatus = () => {
-        changeStatus(statusInputValue);
-        toggleEditMode();
-    } 
 
     return (
         <div>
-                { !editMode ?
-                    <div onDoubleClick={toggleEditMode}>
-                        status: {status || 'no status'}
-                    </div>
-                :
-                    <div>
-                        <input
-                            onChange={updateStatusInputValue}
-                            value={statusInputValue}></input>
-                        <button
-                            onClick={saveStatus}
-                        >save</button>
-                        <button
-                            onClick={toggleEditMode}
-                        >close</button>
-                    </div>
-                }
-            </div>
-    ) 
+            { !editMode ?
+                <div onDoubleClick={toggleEditMode}>status: {status || 'no status'}</div>
+                : <StatusForm onClose={toggleEditMode}/>
+            }
+        </div>
+    )
 }
 
 export default ProfileStatusWithHooks;

@@ -47,3 +47,13 @@ export const SelectFormElem = ({children, ...props}) => {
                 )}
             }</FormControl>
 }
+
+
+
+export const ButtonFormElem = ({children, ...props}) => {
+    return <FormControl {...props} >
+    { props => {
+        return <button {...props}>{children}</button>
+        }
+    }</FormControl>
+}

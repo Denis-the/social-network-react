@@ -1,4 +1,3 @@
-
 import './App.css';
 import React from 'react'
 import { connect } from 'react-redux';
@@ -21,7 +20,6 @@ class App extends React.Component {
   render() {
     if (!this.props.isAppInitialized) return <Preloader/>
 
-    
     return (
       <div className="app-wrapper">
         <HeaderContainer />
@@ -42,7 +40,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isAppInitialized: state.app.initialized,
 })
 
