@@ -24,8 +24,6 @@ const useConnect = () => {
 }
 
 const ProfileContainer = (props) => {
-    
-
     const { status, profileInfo, isFetching, authId,
         getProfile, getStatus, changeStatus } = useConnect()
 

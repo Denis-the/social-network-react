@@ -63,7 +63,7 @@ const usersReducer = (state = initialUsersState, action) => {
             return stateCopy
         }
         case ADD_FOLLOWING_IN_PROGRESS: {
-            const setCopy = new Set(state.FollowingInProgress);
+            const setCopy = new Set(state.followingInProgress);
             setCopy.add(action.userId);
             return {...state, followingInProgress:setCopy}
         }
@@ -136,9 +136,9 @@ export const deleteFollowingProgress = (userId) => ({
 
 
 // thunks
-export const getUsersTC = (pageNumber, perPage, pagesTotal) => {
+export const getUsersTC = (pageNumber, perPage) => {
+    
     return (dispatch) => {
-        if (pageNumber < 1 || (pageNumber > pagesTotal && pagesTotal > 0)) return;
         dispatch(toggleIsFetching(true));
         usersAPI.getUsers(pageNumber, perPage).then(data => {
             const users = data.items;
@@ -150,6 +150,7 @@ export const getUsersTC = (pageNumber, perPage, pagesTotal) => {
             dispatch(setCurrentPage(pageNumber));
             dispatch(setPerPageCount(perPage));
         })
+        
     }
 }
 

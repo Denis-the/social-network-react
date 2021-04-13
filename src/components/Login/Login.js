@@ -7,15 +7,26 @@ import Captcha from "../common/Captcha/Captcha";
 import { InputFormElem } from "../common/FormElems/FormElems";
 import { requiredField, maxLengthFieldCreator, 
     minLengthFieldCreator, composeValidators } from '../../utils/validators/validators';
+import { getIsAuth } from "../../redux/selectors/authSelectors";
 
 const maxLengthField_15 = maxLengthFieldCreator(15);
 const minLengthField_6 = minLengthFieldCreator(6);
 
+const useLogin = () => {
+    const dispatch = useDispatch();
+    const login = fields => dispatch(loginToServer(fields));
+    return login;
+    
+}
 
-const LoginForm = ({submitAction, isCaptchaRequired, captchaUrl}) => {
+const LoginForm = (props) => {
+    const isCaptchaRequired = useSelector( state => state.auth.isCaptchaRequired);
+    const captchaUrl = useSelector( state => state.auth.captchaUrl);
+    const login = useLogin();
+
     return (
         <Form
-            onSubmit={ fields => submitAction(fields).then( err => ({[FORM_ERROR]: err}))}
+            onSubmit={ fields => login(fields).then( err => ({[FORM_ERROR]: err}))}
             initialValues={{ email: 'd.rozumnyu@gmail.com', password: 'umfLSzUny3G!FYY', rememberMe:true, captcha:'',}}
         >   
             {({ form, handleSubmit, submitError }) => {
@@ -43,20 +54,9 @@ const LoginForm = ({submitAction, isCaptchaRequired, captchaUrl}) => {
 }
 
 const Login = (props) => {
-    const isAuth = useSelector( state => state.auth.isAuth);
-    const isCaptchaRequired = useSelector( state => state.auth.isCaptchaRequired);
-    const captchaUrl = useSelector( state => state.auth.captchaUrl);
-    const dispatch = useDispatch();
-    const login = fields => dispatch(loginToServer(fields))
-
+    const isAuth = useSelector(getIsAuth);
     if (isAuth) return <Redirect to='/profile' />
-    return (
-        <LoginForm 
-            isCaptchaRequired={isCaptchaRequired}
-            captchaUrl={captchaUrl}
-            submitAction={login}
-        />
-    )
+    return <LoginForm />
 }
 
 export default Login;

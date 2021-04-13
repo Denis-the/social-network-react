@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { initilizeApp } from './redux/appReducer';
 import SideBar from './components/SideBar/SideBar.js'
 import Dialogs from './components/Dialogs/Dialogs.js';
-import UsersContainer from './components/Users/UsersContainer'; 
+import UsersContainer from './components/Users/UsersContainerWithHooks'; 
 import ProfileContainer from './components/Profile/ProfileContainerWithHooks';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
