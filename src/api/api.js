@@ -11,10 +11,11 @@ const instance = axios.create({
 
 
 export const usersAPI = {
-    async getUsers(pageNumber, perPage) {
-        return instance.get(`users?page=${pageNumber}&count=${perPage}`).then(response => {
-            return response.data;
-        })
+    async requestUsers(pageNumber, perPage, term, followed) {
+        let termParam = ''; let searchFollowed = '';
+        if (term) termParam = '&term=' + term;
+        if (followed != null) searchFollowed = '&friend=' + followed;
+        return instance.get(`users?page=${pageNumber}&count=${perPage}${termParam}${searchFollowed}`).then(response => response.data)
     },
     async followUser(userId) {
         return instance.post(`follow/${userId}`).then(response => response.data)

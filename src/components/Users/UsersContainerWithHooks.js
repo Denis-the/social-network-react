@@ -1,14 +1,16 @@
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
-import { compose } from 'redux';
-import { getUsersTC, followTC, unfollowTC } from '../../redux/usersReducer';
-import {withRouter, useLocation} from 'react-router-dom';
+import { fetchUsers, followTC, unfollowTC } from '../../redux/usersReducer';
+import { useLocation, useHistory } from 'react-router-dom';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
-import { getCurrentPage, getFollowingInProgress, getIsFetching, getPerPage, getTotalUsersCount, getUsers } from '../../redux/selectors/usersSelectors';
+import { getCurrentPage, getFollowingInProgress, getIsFetching, 
+    getPerPage, getTotalUsersCount, getUsers, getSearchTerm, getSearchFollowed } from '../../redux/selectors/usersSelectors';
 
 const useConnect = () => {
     const users = useSelector(getUsers);
+    const searchTerm = useSelector(getSearchTerm);
+    const searchFollowed = useSelector(getSearchFollowed);
     const perPage = useSelector(getPerPage);
     const currentPage = useSelector(getCurrentPage);
     const totalUsersCount = useSelector(getTotalUsersCount);
@@ -17,111 +19,55 @@ const useConnect = () => {
     const pagesTotal = Math.ceil(totalUsersCount / perPage);
 
     const dispatch = useDispatch();
-    const requestUsers = (page, perPage) => dispatch(getUsersTC(page, perPage));
-    const requestChangePerPage = (count) => dispatch(getUsersTC(1, count, pagesTotal));
+    const requestUsers = ({page, perPage, term, followed}) => dispatch(fetchUsers({page, perPage, term, followed}));
     const requestFollowUser = (userId) => dispatch(followTC(userId));
     const requestUnfollowUser = (userId) => dispatch(unfollowTC(userId));
 
-    return {users, perPage, currentPage, totalUsersCount, isFetching, followingInProgress, pagesTotal,
-        requestUsers, requestChangePerPage, requestFollowUser, requestUnfollowUser,
-    }
+    return {users, perPage, searchTerm, searchFollowed, currentPage, 
+        isFetching, followingInProgress, pagesTotal,
+        requestUsers, requestFollowUser, requestUnfollowUser}
 }
 
 
 const UsersContainer = (props) => {
-    const {users, perPage, currentPage, totalUsersCount, isFetching, followingInProgress, pagesTotal,
-        requestUsers, requestChangePerPage, requestFollowUser, requestUnfollowUser,
-    } = useConnect();
-
+    const {users, perPage, searchTerm, searchFollowed, currentPage, 
+        isFetching, followingInProgress, pagesTotal,
+        requestUsers, requestFollowUser, requestUnfollowUser} = useConnect();
     const location = useLocation();
-    console.log(location)
+    const history = useHistory();
 
-    useEffect(()=> {
+    useEffect(() => {
+        let initPage, initPerPage, initTerm, initFollowed;
         const params = new URLSearchParams(location.search);
-        const page = params.get('page') || 1;
-        const perPage = params.get('per_page') || 10;
+        
+        if (parseInt(params.get('page'))) initPage = parseInt(params.get('page'));
+        if (parseInt(params.get('per_page'))) initPerPage = parseInt(params.get('per_page'));
+        if (params.get('search_term')) initTerm = params.get('search_term');
+        if (params.get('followed')) initFollowed = params.get('followed');
 
-        requestUsers(page, perPage)
-
+        requestUsers({page: initPage, perPage: initPerPage, followed: initFollowed, initTerm: initTerm})
     }, [])
 
-    // console.log(location);
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+
+        if (params.get('page') && currentPage != 1) params.set('page', currentPage);
+        if (params.get('per_page') && perPage != 10) params.set('per_page', perPage);
+        if (params.get('search_term') && searchTerm != null) params.set('search_term', searchTerm);
+        if (params.get('followed') && searchFollowed != null) params.set('followed', searchFollowed); 
+
+        history.push({search:params.toString()})
+    }, [currentPage, perPage, searchTerm, searchFollowed])
 
     return (
         <>
+            <button onClick={() => requestUsers({page:currentPage+1, perPage, term:searchTerm, followed:searchFollowed}) }>next</button>
             { isFetching ? <Preloader/> :  null }
-
-            <Users
-                users={users}
-                pagesTotal={pagesTotal}
-                currentPage={currentPage}
-                follow={requestFollowUser}
-                unfollow={requestUnfollowUser}
-                loadPage={requestUsers}
-                changePerPageCount={requestChangePerPage}
-            />
+            <Users users={users} pagesTotal={pagesTotal} currentPage={currentPage}
+                follow={requestFollowUser} unfollow={requestUnfollowUser} loadPage={requestUsers}
+                changePerPageCount={requestUsers}/>
         </>
     )
 }
 
-
-// class UsersContainer extends React.Component {
-//     componentDidMount() {
-//         this.loadPage(this.props.currentPage);
-//     }
-
-//     changePerPageCount = (newCount) => {
-//         this.props.getUsersTC(1, newCount, this.props.pagesTotal)
-//     }
-
-//     loadPage = (pageNumber) => {      
-//         this.props.getUsersTC(pageNumber, this.props.perPage, this.props.pagesTotal)
-//     }
-
-//     followAction = (userId) => {
-//         this.props.followTC(userId);
-//     }
-
-//     unfollowAction = (userId) => {
-//         this.props.unfollowTC(userId);
-//     }
-
-//     render() {
-//         return (
-//             <>
-//                 { this.props.isFetching ? <Preloader/> :  null }
-
-//                 <Users
-//                     users={this.props.users}
-//                     pagesTotal={this.props.pagesTotal}
-//                     currentPage={this.props.currentPage}
-//                     follow={this.followAction}
-//                     unfollow={this.unfollowAction}
-//                     loadPage={this.loadPage}
-//                     changePerPageCount={this.changePerPageCount}
-//                 />
-//             </>
-//         )
-//     }
-// }
-
-const mapStateToProps = (state) => {
-    return {
-        users: state.usersReducer.users,
-        perPage: state.usersReducer.perPage,
-        currentPage: state.usersReducer.currentPage,
-        totalUsersCount: state.usersReducer.totalUsersCount,
-        isFetching: state.usersReducer.isFetching,
-        followingInProgress: state.usersReducer.followingInProgress,
-        pagesTotal: Math.ceil(state.usersReducer.totalUsersCount / state.usersReducer.perPage),
-    }
-}
-
-
-// const UsersContainer = connect(mapStateToProps,{getUsersTC, followTC, unfollowTC})(UsersAPIComponent);
-// export default UsersContainer;
-
-export default compose(
-    connect(mapStateToProps,{getUsersTC, followTC, unfollowTC}),
-    withRouter,
-)(UsersContainer)
+export default UsersContainer

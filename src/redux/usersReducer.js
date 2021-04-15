@@ -1,6 +1,8 @@
 import { usersAPI } from "../api/api";
 
 const SET_USERS = "SET-USERS";
+const SET_SEARCH_TERM = "SET_SEARCH_TERM";
+const SET_SEARCH_FOLLOWED = "SET_SEARCH_FOLLOWED";
 const SET_PER_PAGE_COUNT = 'SET-PER-PAGE-COUNT';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
@@ -12,6 +14,8 @@ const DELETE_FOLLOWING_IN_PROGRESS = "DELETE-FOLLOWING-IN-PROGRESS";
 
 const initialUsersState = {
     users: [],
+    searchTerm:null,
+    searchFollowed:null,
     perPage: 10,
     currentPage: 1,
     totalUsersCount: 0,
@@ -27,13 +31,19 @@ const usersReducer = (state = initialUsersState, action) => {
             if (action.newCount >= 1 && action.newCount <= 100) return { ...state, perPage: action.newCount };
         }
         case SET_TOTAL_USERS_COUNT: {
-            return {...state, totalUsersCount:action.newCount}
+            return { ...state, totalUsersCount: action.newCount }
         }
         case SET_CURRENT_PAGE: {
-            return {...state, currentPage:action.currentPage}
+            return { ...state, currentPage: action.currentPage }
         }
         case SET_USERS: {
             return { ...state, users: [...action.newUsers] }
+        }
+        case SET_SEARCH_FOLLOWED: {
+            return { ...state, searchFollowed: action.searchFollowed}
+        }
+        case SET_SEARCH_TERM: {
+            return { ...state, searchTerm: action.searchTerm}
         }
         case FOLLOW: {
             const stateCopy = {
@@ -65,17 +75,17 @@ const usersReducer = (state = initialUsersState, action) => {
         case ADD_FOLLOWING_IN_PROGRESS: {
             const setCopy = new Set(state.followingInProgress);
             setCopy.add(action.userId);
-            return {...state, followingInProgress:setCopy}
+            return { ...state, followingInProgress: setCopy }
         }
         case DELETE_FOLLOWING_IN_PROGRESS: {
             const setCopy = new Set(state.followingInProgress);
             console.log(setCopy)
             setCopy.delete(action.userId);
-            return {...state, followingInProgress:setCopy}
+            return { ...state, followingInProgress: setCopy }
         }
 
         case TOGGLE_IS_FETCHING: {
-            return {...state, isFetching: action.isFetching}
+            return { ...state, isFetching: action.isFetching }
 
         }
 
@@ -100,7 +110,7 @@ export const setTotalUsersCount = (newCount) => {
 export const setCurrentPage = (currentPage) => {
     return {
         type: SET_CURRENT_PAGE,
-        currentPage:currentPage,
+        currentPage: currentPage,
     }
 }
 export const setUsers = (newUsers) => {
@@ -109,6 +119,11 @@ export const setUsers = (newUsers) => {
         newUsers: newUsers
     }
 }
+
+export const setSearchTerm = searchTerm => ({type:SET_SEARCH_TERM, searchTerm});
+
+export const setSearchFollowed = searchFollowed => ({type:SET_SEARCH_FOLLOWED, searchFollowed});
+
 export const follow = (userId) => {
     return {
         type: FOLLOW,
@@ -121,36 +136,57 @@ export const unfollow = (userId) => {
         userId: userId
     }
 }
-export const toggleIsFetching = (isFetching) => {
-    return {
-        type: TOGGLE_IS_FETCHING,
-        isFetching: isFetching,
-    }
-}
+export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching,})
 export const addFollowingProgress = (userId) => ({
-    type:ADD_FOLLOWING_IN_PROGRESS, userId
+    type: ADD_FOLLOWING_IN_PROGRESS, userId
 })
 export const deleteFollowingProgress = (userId) => ({
-    type:DELETE_FOLLOWING_IN_PROGRESS, userId
+    type: DELETE_FOLLOWING_IN_PROGRESS, userId
 })
 
 
 // thunks
-export const getUsersTC = (pageNumber, perPage) => {
-    
+export const fetchUsers = ({ page = 1, perPage = 10, term = null, followed = null    }) => {
+    return dispatch => {
+        try {
+            dispatch(toggleIsFetching(true));
+            usersAPI.requestUsers(page, perPage, term, followed).then(data => {
+                const users = data.items;
+                const totalUsersCount = data.totalCount;
+                dispatch(setUsers(users));
+                dispatch(setTotalUsersCount(totalUsersCount));
+                dispatch(setCurrentPage(page));
+                dispatch(setPerPageCount(perPage));
+                dispatch(setSearchTerm(term));
+                dispatch(setSearchFollowed(followed));
+
+                dispatch(toggleIsFetching(false));
+            })
+        } catch (e) {
+            debugger;
+            console.log(e)
+            dispatch(toggleIsFetching(false));
+        } finally {
+            
+        }
+    }
+}
+
+export const getUsersTC = ({ page, perPage, term, followed }) => {
+    console.warn('this function is deprecated function, will be removed in a future, use fetchUsers() instead')
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
-        usersAPI.getUsers(pageNumber, perPage).then(data => {
+        usersAPI.requestUsers(page, perPage, term, followed).then(data => {
             const users = data.items;
             const totalUsersCount = data.totalCount;
 
             dispatch(toggleIsFetching(false));
             dispatch(setUsers(users));
             dispatch(setTotalUsersCount(totalUsersCount));
-            dispatch(setCurrentPage(pageNumber));
+            dispatch(setCurrentPage(page));
             dispatch(setPerPageCount(perPage));
         })
-        
+
     }
 }
 
@@ -159,11 +195,11 @@ export const followTC = (userId) => {
         if (getState().usersReducer.followingInProgress.has(userId)) return;
         dispatch(addFollowingProgress(userId));
         usersAPI.followUser(userId).then(
-                data => {
-                    dispatch(deleteFollowingProgress(userId));
-                    if (data.resultCode === 0) dispatch(follow(userId));
-                }
-            )
+            data => {
+                dispatch(deleteFollowingProgress(userId));
+                if (data.resultCode === 0) dispatch(follow(userId));
+            }
+        )
     }
 }
 
@@ -172,11 +208,11 @@ export const unfollowTC = (userId) => {
         if (getState().usersReducer.followingInProgress.has(userId)) return;
         dispatch(addFollowingProgress(userId));
         usersAPI.unfollowUser(userId).then(
-                data => {
-                    dispatch(deleteFollowingProgress(userId));
-                    if (data.resultCode === 0) dispatch(unfollow(userId));
-                }
-            )
+            data => {
+                dispatch(deleteFollowingProgress(userId));
+                if (data.resultCode === 0) dispatch(unfollow(userId));
+            }
+        )
     }
 }
 
