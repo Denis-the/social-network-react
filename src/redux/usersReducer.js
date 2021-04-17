@@ -79,7 +79,6 @@ const usersReducer = (state = initialUsersState, action) => {
         }
         case DELETE_FOLLOWING_IN_PROGRESS: {
             const setCopy = new Set(state.followingInProgress);
-            console.log(setCopy)
             setCopy.delete(action.userId);
             return { ...state, followingInProgress: setCopy }
         }
@@ -146,7 +145,7 @@ export const deleteFollowingProgress = (userId) => ({
 
 
 // thunks
-export const fetchUsers = ({ page = 1, perPage = 10, term = null, followed = null    }) => {
+export const fetchUsers = ({ page = 1, perPage = 10, term = null, followed = null }) => {
     return dispatch => {
         try {
             dispatch(toggleIsFetching(true));
