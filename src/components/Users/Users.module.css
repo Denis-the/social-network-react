@@ -4,6 +4,11 @@
 }
 
 .navBtnIncative {
-    color: gray;
+    color:black;
+    background-color: white;
 }
 
+.navBtn:disabled,.navBtn[disabled]  {
+    color:black;
+    background-color: white;
+}

@@ -159,14 +159,11 @@ export const fetchUsers = ({ page = 1, perPage = 10, term = null, followed = nul
                 dispatch(setSearchTerm(term));
                 dispatch(setSearchFollowed(followed));
 
-                dispatch(toggleIsFetching(false));
-            })
+
+            }).finally(() => dispatch(toggleIsFetching(false)))
         } catch (e) {
             debugger;
             console.log(e)
-            dispatch(toggleIsFetching(false));
-        } finally {
-            
         }
     }
 }

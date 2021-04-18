@@ -52,9 +52,9 @@ const UsersContainer = () => {
         requestUsersHandler, followUserHandler} = useConnect();
     const location = useLocation();
     const history = useHistory();
-    console.log(queryParams)
 
     useEffect(() => {
+        // if (users) return;
         let initPage, initPerPage, initTerm, initFollowed;
         const params = new URLSearchParams(location.search);
         
@@ -63,7 +63,7 @@ const UsersContainer = () => {
         if (params.get('search_term')) initTerm = params.get('search_term');
         if (params.get('followed')) initFollowed = params.get('followed');
 
-        requestUsersHandler.requestUsers({page: initPage, perPage: initPerPage, followed: initFollowed, initTerm: initTerm})
+        requestUsersHandler.requestUsers({page: initPage, perPage: initPerPage, followed: initFollowed, term: initTerm})
     }, [])
 
     useEffect(() => {
@@ -79,14 +79,13 @@ const UsersContainer = () => {
 
     return (
         <>
-            <button onClick={() => requestUsersHandler.requestNextPage() }>next</button>
-            <button onClick={() => requestUsersHandler.requestFirstPage() }>first</button>
-            <button onClick={() => requestUsersHandler.requestLastPage() }>last</button>
             { isFetching ? <Preloader/> :  null }
-            <Users users={users} pagesTotal={pagesTotal} currentPage={queryParams.currentPage} 
-                requestUsersHandler={requestUsersHandler}
-                follow={followUserHandler.requestFollowUser} unfollow={followUserHandler.requestUnfollowUser} loadPage={requestUsersHandler.requestUsers}
-                changePerPageCount={requestUsersHandler.changePerPageCount}/>
+            <Users users={users} pagesTotal={pagesTotal}  isFetching={isFetching}
+                {...queryParams}
+                // currentPage={queryParams.currentPage} perPage={queryParams.perPage}
+                // searchTerm={queryParams.searchTerm} searchFollowed={queryParams.searchFollowed}
+                requestUsersHandler={requestUsersHandler} followUserHandler={followUserHandler}
+            />
         </>
     )
 }

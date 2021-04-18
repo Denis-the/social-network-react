@@ -15,33 +15,27 @@ const StatusForm = ({onClose}) => {
         dispatch(changeStatus(status));
         onClose();
     }
-    
     return (
-        <Form
-        onSubmit={ (fields) => {
-            saveStatus(fields.status);
-        }}
+        <Form onSubmit={ fields => saveStatus(fields.status)}
         initialValues={{status:status}}
-        > 
-        {({form, handleSubmit, submitError}) => {
-        return (<form onSubmit={handleSubmit}>
-            <Field name='status' component={InputFormElem} validate={maxLengthField_300}/>
-            <Field name='save' component={ButtonFormElem} type='submit'>save</Field>
-            <Field name='cancel' component={ButtonFormElem} type='button' onClick={onClose}>cancel</Field>
-            { submitError && <p>{submitError}</p>}
-        </form>
-        )}}</Form>
+        >
+            {({form, handleSubmit, submitError}) => {
+            return (
+                <form onSubmit={handleSubmit}>
+                    <Field name='status' component={InputFormElem} validate={maxLengthField_300}/>
+                    <Field name='save' component={ButtonFormElem} type='submit'>save</Field>
+                    <Field name='cancel' component={ButtonFormElem} type='button' onClick={onClose}>cancel</Field>
+                    { submitError && <p>{submitError}</p>}
+                </form>
+            )}}
+        </Form>
     )
 }
 
 const ProfileStatusWithHooks = (props) => {
     const [editMode, setEditMode] = useState(false);
     const status = useSelector(getStatus);
-
-    const toggleEditMode = () => {
-        setEditMode(!editMode);
-    }
-
+    const toggleEditMode = () => setEditMode(!editMode);
     return (
         <div>
             { !editMode ?
@@ -51,5 +45,4 @@ const ProfileStatusWithHooks = (props) => {
         </div>
     )
 }
-
 export default ProfileStatusWithHooks;
