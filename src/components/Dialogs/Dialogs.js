@@ -2,14 +2,14 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import MessagesContainer from './Messages/MessagesContainer';
 import DialogUsersContainer from './DialogUsers/DialogUsersContainer';
-import LoginRedirectWrapper from '../../hoc/LoginRedirectWrapper/LoginRedirectWrapper';
+import { useLoginRedirect } from '../../hoc/LoginRedirectWrapper/LoginRedirectWrapper';
 
 
 const Dialogs = (props)=> {
-    console.log(props)
+    useLoginRedirect()
+
     return (
         <div className={s.dialogsPage}>
-
             <DialogUsersContainer/>
 
             <MessagesContainer/>
@@ -17,4 +17,4 @@ const Dialogs = (props)=> {
     )
 }
 
-export default LoginRedirectWrapper(Dialogs);
+export default Dialogs;

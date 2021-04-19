@@ -71,10 +71,13 @@ const UsersContainer = () => {
 
         if (params.get('page') || queryParams.currentPage != 1) params.set('page', queryParams.currentPage);
         if (params.get('per_page') || queryParams.perPage != 10) params.set('per_page', queryParams.perPage);
-        if (params.get('search_term') || queryParams.searchTerm != null) params.set('search_term', queryParams.searchTerm);
-        if (params.get('followed') || queryParams.searchFollowed != null) params.set('followed', queryParams.searchFollowed); 
+        if (queryParams.searchTerm != null) params.set('search_term', queryParams.searchTerm);
+        else  params.delete('search_term');
+        if (queryParams.searchFollowed != null) params.set('followed', queryParams.searchFollowed);
+        else params.delete('followed');;
 
-        history.push({search:params.toString()})
+        
+        history.replace({search:params.toString()})
     }, [queryParams])
 
     return (
@@ -82,8 +85,6 @@ const UsersContainer = () => {
             { isFetching ? <Preloader/> :  null }
             <Users users={users} pagesTotal={pagesTotal}  isFetching={isFetching}
                 {...queryParams}
-                // currentPage={queryParams.currentPage} perPage={queryParams.perPage}
-                // searchTerm={queryParams.searchTerm} searchFollowed={queryParams.searchFollowed}
                 requestUsersHandler={requestUsersHandler} followUserHandler={followUserHandler}
             />
         </>

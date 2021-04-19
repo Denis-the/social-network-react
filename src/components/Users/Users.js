@@ -1,6 +1,5 @@
 import s from './Users.module.css';
 import UsersItem from './UsersItem/UsersItem';
-import UsersPageNav from './UsersPagination/UsersPagination';
 import UsersSearchPanel from './UsersSearchPanel/UsersSearchPanel';
 
 const Users = ({users, currentPage, perPage, searchTerm, searchFollowed, pagesTotal, requestUsersHandler, 
@@ -17,14 +16,12 @@ const Users = ({users, currentPage, perPage, searchTerm, searchFollowed, pagesTo
 
     return (
         <div>
-            <UsersSearchPanel submitAction={requestUsersHandler.requestUsers}
+            <UsersSearchPanel requestUsersHandler={requestUsersHandler}
             currentPage={currentPage} perPage={perPage} searchTerm={searchTerm} searchFollowed={searchFollowed}
             />
             <div className='usersContainer'>
                 {usersJXS}
             </div>
-            <UsersPageNav currentPage={currentPage} perPage={perPage}
-            pagesTotal={pagesTotal} requestUsersHandler={requestUsersHandler}/>
         </div>
     )
 }

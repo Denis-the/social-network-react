@@ -1,7 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from "react-router";
+import { connect, useSelector } from 'react-redux';
+import { Redirect, useHistory } from "react-router";
 import Preloader from '../../components/common/Preloader/Preloader';
+import { getIsAuth, getIsFetching } from '../../redux/selectors/authSelectors';
+
+export const useLoginRedirect = () => {
+    const isAuth = useSelector(getIsAuth);
+    const isFetching = useSelector(getIsFetching);
+    const history = useHistory();
+
+    if (!isFetching && !isAuth) history.push('/login')
+}
 
 const LoginRedirectWrapper = (WrappedComponent) => {
     class RedirectComponent extends React.Component {
@@ -18,6 +27,7 @@ const LoginRedirectWrapper = (WrappedComponent) => {
     })
 
     const RedirectComponentConnected = connect(mapAuthToProps)(RedirectComponent);
+
     return RedirectComponentConnected;
 }
 

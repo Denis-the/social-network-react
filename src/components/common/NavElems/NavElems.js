@@ -1,6 +1,6 @@
-export const SelectOption = ({onSelect, options}) => {
+export const SelectOption = ({onSelect, value, options}) => {
     return (
-        <select onChange={onSelect}>
+        <select onChange={onSelect} value={value}>
             {options.map(option => <option key={option.value} {...option}>{option.value}</option>)}
         </select>
     )

@@ -13,15 +13,15 @@ const UsersPageNav = ({requestUsersHandler, isFetching, currentPage, perPage, pa
     ]
 
     const optionsData = [
-        {value:10, selected: perPage === 10},
-        {value:25, selected: perPage === 25},
-        {value:50, selected: perPage === 50},
-        {value:100, selected: perPage === 100},
+        {value:10},
+        {value:25},
+        {value:50},
+        {value:100},
     ]
-
+    
     return (
         <div>
-            <SelectOption options={optionsData} 
+            <SelectOption options={optionsData} value={perPage}
             onSelect={ (e) => requestUsersHandler.changePerPageCount(e.target.value)}/>
             <ButtonGroup buttonsData={navButtonsData}/>
         </div>

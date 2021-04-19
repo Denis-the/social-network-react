@@ -29,7 +29,7 @@ class App extends React.Component {
         <div className="app-wrapper__content">
           <Switch>
             <Route path='/profile/:userId?' component={ProfileContainer} />
-            <Route path='/dialogs' render={() => <Dialogs />} />
+            <Route path='/dialogs' render={() => <Dialogs classF='red' />} />
             <Route path='/users' render={() => <UsersContainer />} />
             <Route path='/login' render={() => <Login />} />
           </Switch>

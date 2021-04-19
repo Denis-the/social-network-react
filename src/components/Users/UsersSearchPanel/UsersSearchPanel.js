@@ -1,24 +1,28 @@
 import { Field, Form } from 'react-final-form'
-import { InputFormElem } from '../../common/FormElems/FormElems'
+import { InputFormElem, SelectFormElem } from '../../common/FormElems/FormElems'
+import UsersPageNav from '../UsersPagination/UsersPagination'
 import s from './UsersSearchPanel.module.css'
 
 const UsersSearchForm = ({submitAction, currentPage, perPage, searchTerm, searchFollowed}) => {
 
     return (
         <Form
-        onSubmit={ (fields) => submitAction(fields) }
-        initialValues={{term:searchTerm, followed:searchFollowed, page:currentPage, perPage:perPage}}
+        onSubmit={ (fields) => {
+            submitAction(fields);
+        } }
+        initialValues={{term:searchTerm, followed:searchFollowed, perPage:perPage}}
         > 
         {({form, handleSubmit, submitError}) => (
                 <form onSubmit={handleSubmit}>
                 <label>search term:</label>
-                <Field name='term' component={InputFormElem}/><br/>
+                <Field name='term' component={InputFormElem}/>
+                
                 <label>only followed:</label>
-                <Field name='followed' component={InputFormElem}/><br/>
-                <label>page:</label>
-                <Field name='page' component={InputFormElem}/><br/>
-                <label>per page:</label>
-                <Field name='perPage' component={InputFormElem}/><br/>
+                <Field name='followed' component={SelectFormElem} value={true}>
+                        <option value={true}>Yes</option>
+                        <option value={''}>No</option>
+                </Field>
+
                 <Field name='submit' component='button' type='submit'>Search</Field><br/>
             </form>
         )}
@@ -28,13 +32,16 @@ const UsersSearchForm = ({submitAction, currentPage, perPage, searchTerm, search
 
 
 
-const UsersSearchPanel = (props) => {
+const UsersSearchPanel = ({requestUsersHandler, ...props}) => {
 
     return (
         <div>
             <UsersSearchForm
             {...props}
+            submitAction={requestUsersHandler.requestUsers}
             ></UsersSearchForm>
+            <UsersPageNav requestUsersHandler={requestUsersHandler}
+            {...props}/>
         </div>
     )
 }
