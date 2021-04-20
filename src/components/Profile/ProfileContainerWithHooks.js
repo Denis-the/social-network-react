@@ -32,10 +32,8 @@ const ProfileContainer = (props) => {
         getStatus(props.match.params.userId || authId);
     }, [props.match.params.userId, authId]);
 
-    const changeStatusAPI = (status) => {
-        changeStatus(status);
-    }
-
+    console.log('render profile')
+    // console.log(status, profileInfo, isFetching)
     if (!props.match.params.userId) { return <Redirect to={'/profile/' + authId} /> }
     return (
         <Profile
@@ -43,7 +41,7 @@ const ProfileContainer = (props) => {
             profileInfo={profileInfo}
             addNewPost={props.addNewPost}
             updateNewPostValue={props.updateNewPostValue}
-            changeStatus={changeStatusAPI}
+            changeStatus={changeStatus}
             status={status}
         />
     )

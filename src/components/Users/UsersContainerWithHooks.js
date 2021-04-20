@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
-import { fetchUsers, followTC, unfollowTC } from '../../redux/usersReducer';
-import { getCurrentPage, getFollowingInProgress, getIsFetching, getPerPage, getTotalUsersCount, 
-    getUsers, getSearchTerm, getSearchFollowed, getQueryParams } from '../../redux/selectors/usersSelectors';
+import {  getFollowingInProgress, getIsFetching, getPerPage, getTotalUsersCount, 
+    getUsers, getQueryParams } from '../../redux/selectors/usersSelectors';
 import Preloader from '../common/Preloader/Preloader';
 import Users from './Users';
+import { useRequestUsersHandler } from '../../hooks/users/usersHooks';
+ 
+
+
 
 
 const useConnect = () => {
@@ -16,52 +19,26 @@ const useConnect = () => {
     const totalUsersCount = useSelector(getTotalUsersCount);
     const pagesTotal = Math.ceil(totalUsersCount / queryParams.perPage);
 
-    const dispatch = useDispatch();
+    const requestUsersHandler = useRequestUsersHandler()
 
-    const followUserHandler = {
-        requestFollowUser(userId) {dispatch(followTC(userId))},
-        requestUnfollowUser(userId) {dispatch(unfollowTC(userId))},
-    }
-
-    const {currentPage, perPage, searchTerm, searchFollowed} = queryParams 
-    const requestUsersHandler = {
-        requestUsers({page, perPage, term, followed}) {dispatch(fetchUsers({page, perPage, term, followed}))},
-        changePerPageCount(perPage) {this.requestUsers({page:1, perPage, term:searchTerm, followed:searchFollowed})},
-        requestPage(page) {this.requestUsers({page, perPage:perPage, term:searchTerm, followed:searchFollowed})},
-        requestFirstPage() {this.requestUsers({page: 1, perPage:perPage, term:searchTerm, followed:searchFollowed})},
-        requestLastPage() {this.requestUsers({page: pagesTotal, perPage:perPage, term:searchTerm, followed:searchFollowed})},
-        requestNextPage() {this.requestUsers({page: currentPage+1, perPage:perPage, term:searchTerm, followed:searchFollowed})},
-        requestPrevPage() {this.requestUsers({page: currentPage-1, perPage:perPage, term:searchTerm, followed:searchFollowed})},
-    }
-    requestUsersHandler.requestUsers = requestUsersHandler.requestUsers.bind(requestUsersHandler);
-    requestUsersHandler.changePerPageCount = requestUsersHandler.changePerPageCount.bind(requestUsersHandler);
-    requestUsersHandler.requestPage = requestUsersHandler.requestPage.bind(requestUsersHandler);
-    requestUsersHandler.requestFirstPage = requestUsersHandler.requestFirstPage.bind(requestUsersHandler);
-    requestUsersHandler.requestLastPage = requestUsersHandler.requestLastPage.bind(requestUsersHandler);
-    requestUsersHandler.requestNextPage = requestUsersHandler.requestNextPage.bind(requestUsersHandler);
-    requestUsersHandler.requestPrevPage = requestUsersHandler.requestPrevPage.bind(requestUsersHandler);
-
-    return {users, queryParams,
-        isFetching, followingInProgress, pagesTotal, 
-        requestUsersHandler, followUserHandler,}
+    return {users, queryParams, isFetching, followingInProgress, pagesTotal, requestUsersHandler,}
 }
 
 
-const UsersContainer = () => {
-    const {users,  pagesTotal, isFetching, followingInProgress,  queryParams,
-        requestUsersHandler, followUserHandler} = useConnect();
+const UsersContainer = (props) => {
+    const {users,  pagesTotal, isFetching, followingInProgress,  queryParams, requestUsersHandler} = useConnect();
     const location = useLocation();
     const history = useHistory();
 
     useEffect(() => {
-        // if (users) return;
+        if (users.length !== 0) return;
         let initPage, initPerPage, initTerm, initFollowed;
         const params = new URLSearchParams(location.search);
         
-        if (parseInt(params.get('page'))) initPage = parseInt(params.get('page'));
-        if (parseInt(params.get('per_page'))) initPerPage = parseInt(params.get('per_page'));
-        if (params.get('search_term')) initTerm = params.get('search_term');
-        if (params.get('followed')) initFollowed = params.get('followed');
+        initPage = parseInt(params.get('page')) || queryParams.currentPage;
+        initPerPage = parseInt(params.get('per_page')) || queryParams.perPage;
+        initTerm = params.get('search_term') || queryParams.searchTerm;
+        initFollowed = params.get('followed') || queryParams.searchFollowed;
 
         requestUsersHandler.requestUsers({page: initPage, perPage: initPerPage, followed: initFollowed, term: initTerm})
     }, [])
@@ -77,16 +54,13 @@ const UsersContainer = () => {
         else params.delete('followed');;
 
         
-        history.replace({search:params.toString()})
+        history.push({search:params.toString()})
     }, [queryParams])
 
     return (
         <>
             { isFetching ? <Preloader/> :  null }
-            <Users users={users} pagesTotal={pagesTotal}  isFetching={isFetching}
-                {...queryParams}
-                requestUsersHandler={requestUsersHandler} followUserHandler={followUserHandler}
-            />
+            <Users users={users} pagesTotal={pagesTotal}  isFetching={isFetching} {...queryParams}/>
         </>
     )
 }

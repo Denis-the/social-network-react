@@ -1,20 +1,20 @@
+import React from 'react'
 import Preloader from '../common/Preloader/Preloader'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 
-const Profile = (props) => {
+const Profile = React.memo((props) => {
+
+    console.log('Profile')
     return (
         <div>
             { (props.isFetching) ? <Preloader/> : null }
-
-            { (props.profileInfo) ? 
             <ProfileInfo 
             profileInfo={props.profileInfo}
             changeStatus={props.changeStatus}
             status={props.status}
-            /> : null}
-            
+            />            
         </div>
     )
-}
+})
 
 export default Profile;

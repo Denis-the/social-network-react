@@ -1,10 +1,11 @@
+import React from "react";
 import s from "./ProfileInfo.module.css"
 import ProfileStatus from "./profileStatus/ProfileStatus";
 import ProfileStatusWithHooks from "./profileStatus/ProfileStatusWithHooks";
 
-
-const ProfileInfo = (props) => {
-
+const ProfileInfo = React.memo((props) => {
+    console.log('render Info')
+    if (!props.profileInfo) return null
     return (
         <div>
             <img 
@@ -21,6 +22,6 @@ const ProfileInfo = (props) => {
             </div>
         </div>
     )
-}
+})
 
 export default ProfileInfo

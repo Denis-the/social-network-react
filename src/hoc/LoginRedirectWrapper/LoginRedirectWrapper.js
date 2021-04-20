@@ -12,6 +12,7 @@ export const useLoginRedirect = () => {
     if (!isFetching && !isAuth) history.push('/login')
 }
 
+
 const LoginRedirectWrapper = (WrappedComponent) => {
     class RedirectComponent extends React.Component {
         render() {

@@ -146,7 +146,7 @@ export const deleteFollowingProgress = (userId) => ({
 
 // thunks
 export const fetchUsers = ({ page = 1, perPage = 10, term = null, followed = null }) => {
-    return dispatch => {
+    return (dispatch) => {
         try {
             dispatch(toggleIsFetching(true));
             usersAPI.requestUsers(page, perPage, term, followed).then(data => {

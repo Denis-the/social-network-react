@@ -8,6 +8,7 @@ import { useLoginRedirect } from '../../hoc/LoginRedirectWrapper/LoginRedirectWr
 const Dialogs = (props)=> {
     useLoginRedirect()
 
+    console.log('render dialogs')
     return (
         <div className={s.dialogsPage}>
             <DialogUsersContainer/>

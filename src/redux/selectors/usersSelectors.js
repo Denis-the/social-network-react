@@ -20,4 +20,3 @@ export const getTotalUsersCount = state => state.usersReducer.totalUsersCount;
 export const getIsFetching = state =>  state.usersReducer.isFetching;
 
 export const getFollowingInProgress = state => state.usersReducer.followingInProgress;
-

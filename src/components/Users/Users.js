@@ -1,9 +1,14 @@
+import React from 'react';
+import { useFollowUsersHandler } from '../../hooks/users/usersHooks';
 import s from './Users.module.css';
 import UsersItem from './UsersItem/UsersItem';
 import UsersSearchPanel from './UsersSearchPanel/UsersSearchPanel';
 
-const Users = ({users, currentPage, perPage, searchTerm, searchFollowed, pagesTotal, requestUsersHandler, 
-    followUserHandler, isFetching, ...props}) => {
+const Users = React.memo(({users, currentPage, perPage, searchTerm, searchFollowed, pagesTotal, 
+    isFetching, ...props}) => {
+    
+    const followUserHandler = useFollowUsersHandler()
+    
     const usersJXS = users.map((user) => (
         <UsersItem
             key={user.id}
@@ -16,7 +21,7 @@ const Users = ({users, currentPage, perPage, searchTerm, searchFollowed, pagesTo
 
     return (
         <div>
-            <UsersSearchPanel requestUsersHandler={requestUsersHandler}
+            <UsersSearchPanel 
             currentPage={currentPage} perPage={perPage} searchTerm={searchTerm} searchFollowed={searchFollowed}
             />
             <div className='usersContainer'>
@@ -24,7 +29,7 @@ const Users = ({users, currentPage, perPage, searchTerm, searchFollowed, pagesTo
             </div>
         </div>
     )
-}
+})
 
 export default Users;
 
