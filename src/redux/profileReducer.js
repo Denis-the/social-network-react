@@ -11,6 +11,7 @@ const initialProfileState = {
         status: null,
         newPostValue: '',
         isFetching: false,
+        posts:[],
 }
 
 

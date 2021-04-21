@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
-import {  getFollowingInProgress, getIsFetching, getPerPage, getTotalUsersCount, 
+import {  getFollowingInProgress, getIsFetching, getTotalUsersCount, 
     getUsers, getQueryParams } from '../../redux/selectors/usersSelectors';
 import Preloader from '../common/Preloader/Preloader';
 import Users from './Users';
