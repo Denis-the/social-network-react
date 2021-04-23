@@ -1,4 +1,4 @@
-import {SelectOption, ButtonGroup} from '../../common/NavElems/NavElems'
+import {SelectOption, ButtonGroup} from '../common/NavElems/NavElems'
 
 const UsersPageNav = ({requestUsersHandler, isFetching, currentPage, perPage, pagesTotal}) => {
     const navButtonsData = [
@@ -11,7 +11,6 @@ const UsersPageNav = ({requestUsersHandler, isFetching, currentPage, perPage, pa
         {value:'last', onClick: requestUsersHandler.requestLastPage,
         disabled: isFetching || currentPage === pagesTotal},
     ]
-
     const optionsData = [
         {value:10},
         {value:25},

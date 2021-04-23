@@ -1,4 +1,5 @@
 import { usersAPI } from "../api/api";
+import { updateObjectInArray } from "../utils/object-helpers";
 
 const SET_USERS = "social/users/SET-USERS";
 const SET_SEARCH_TERM = "social/users/SET_SEARCH_TERM";
@@ -45,18 +46,14 @@ const usersReducer = (state = initialUsersState, action) => {
             return { ...state, searchTerm: action.payload }
         }
         case FOLLOW: {
-            const stateCopy = {
-                ...state,
-                users: state.users.map(u => u.id === action.payload ? { ...u, followed: true } : u)
+            return { ...state,
+                users: updateObjectInArray(state.users, action.payload, 'id', {followed: true})
             }
-            return stateCopy
         }
         case UNFOLLOW: {
-            const stateCopy = {
-                ...state,
-                users: state.users.map(u => u.id === action.payload ? { ...u, followed: false } : u)
+            return { ...state,
+                users: updateObjectInArray(state.users, action.payload, 'id', {followed: false})
             }
-            return stateCopy
         }
         case ADD_FOLLOWING_IN_PROGRESS: {
             const setCopy = new Set(state.followingInProgress);

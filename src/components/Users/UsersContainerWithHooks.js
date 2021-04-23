@@ -6,27 +6,17 @@ import {  getFollowingInProgress, getIsFetching, getTotalUsersCount,
 import Preloader from '../common/Preloader/Preloader';
 import Users from './Users';
 import { useRequestUsersHandler } from '../../hooks/users/usersHooks';
- 
-
-
-
-
-const useConnect = () => {
-    const queryParams = useSelector(getQueryParams);
-    const users = useSelector(getUsers);
-    const isFetching = useSelector(getIsFetching);
-    const followingInProgress = useSelector(getFollowingInProgress);
-    const totalUsersCount = useSelector(getTotalUsersCount);
-    const pagesTotal = Math.ceil(totalUsersCount / queryParams.perPage);
-
-    const requestUsersHandler = useRequestUsersHandler()
-
-    return {users, queryParams, isFetching, followingInProgress, pagesTotal, requestUsersHandler,}
-}
 
 
 const UsersContainer = (props) => {
-    const {users,  pagesTotal, isFetching, followingInProgress,  queryParams, requestUsersHandler} = useConnect();
+    const queryParams = useSelector(getQueryParams);
+    const users = useSelector(getUsers);
+    const totalUsersCount = useSelector(getTotalUsersCount);
+    const pagesTotal = Math.ceil(totalUsersCount / queryParams.perPage);
+    
+    const isFetching = useSelector(getIsFetching);
+    const followingInProgress = useSelector(getFollowingInProgress);
+    const requestUsersHandler = useRequestUsersHandler()
     const location = useLocation();
     const history = useHistory();
 
@@ -60,7 +50,8 @@ const UsersContainer = (props) => {
     return (
         <>
             { isFetching ? <Preloader/> :  null }
-            <Users users={users} pagesTotal={pagesTotal}  isFetching={isFetching} {...queryParams}/>
+            <Users users={users} pagesTotal={pagesTotal}  isFetching={isFetching} 
+                followingInProgress={followingInProgress} {...queryParams} />
         </>
     )
 }

@@ -6,7 +6,7 @@ import s from './SideBar.module.css';
 const SideBar = (props) => {
     const chosenFriendsList = props.store.getState().sideBarData.chosenFriends;
     return (
-        <div className={s.sideBar}>
+        <div className='sidebar-wrapper'>
             <nav >
                 <div className={s.item}>
                     <NavLink

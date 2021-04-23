@@ -1,31 +1,23 @@
+import s from './Users.module.css';
 import React from 'react';
 import { useFollowUsersHandler } from '../../hooks/users/usersHooks';
-import s from './Users.module.css';
-import UsersItem from './UsersItem/UsersItem';
-import UsersSearchPanel from './UsersSearchPanel/UsersSearchPanel';
+import UserItem from './UserItem';
+import UsersSearchPanel from './UsersSearchPanel';
 
-const Users = React.memo(({users, currentPage, perPage, searchTerm, searchFollowed, pagesTotal, 
-    isFetching, ...props}) => {
+const Users = React.memo(({users, isFetching, followingInProgress,
+    currentPage, perPage, searchTerm, searchFollowed, pagesTotal, ...props}) => {
+    const followUserHandler = useFollowUsersHandler();
     
-    const followUserHandler = useFollowUsersHandler()
-    
-    const usersJXS = users.map((user) => (
-        <UsersItem
-            key={user.id}
-            user={user}
-            follow={followUserHandler.requestFollowUser}
-            unfollow={followUserHandler.requestUnfollowUser}
-            
-        />
-    ))
-
     return (
-        <div>
+        <div className='users-wrapper'>
             <UsersSearchPanel 
             currentPage={currentPage} perPage={perPage} searchTerm={searchTerm} searchFollowed={searchFollowed}
             />
             <div className='usersContainer'>
-                {usersJXS}
+                {users.map((user) => (
+                <UserItem key={user.id} user={user} followingInProgress={followingInProgress}
+                    follow={followUserHandler.requestFollowUser} unfollow={followUserHandler.requestUnfollowUser}/>
+                ))}
             </div>
         </div>
     )

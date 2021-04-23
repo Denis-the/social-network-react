@@ -1,9 +1,8 @@
 import React from 'react'
 import { Field, Form } from 'react-final-form'
-import { useRequestUsersHandler } from '../../../hooks/users/usersHooks'
-import { InputFormElem, SelectFormElem } from '../../common/FormElems/FormElems'
-import UsersPageNav from '../UsersPagination/UsersPagination'
-import s from './UsersSearchPanel.module.css'
+import { useRequestUsersHandler } from '../../hooks/users/usersHooks'
+import { InputFormElem, SelectFormElem } from '../common/FormElems/FormElems'
+import UsersPageNav from './UsersPagination'
 
 const UsersSearchForm = ({submitAction, currentPage, perPage, searchTerm, searchFollowed}) => {
 
