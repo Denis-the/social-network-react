@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import s from './FormElems.module.css'
 import warningIcon from '../../../assets/icons/warning-sign.svg'
 
-const FormControl = ({input, meta, children, ...props}) => {
+const FormControl = ({input, meta, children, className, ...props}) => {
     const [dispayMessageBox, setDisplayMessageBox] = useState(false)
     const hasError = meta.error && meta.touched && !meta.active
-    const childClass = s.formControl__field + ' ' + `${hasError ? s.formControl__fieldError : ''}`    
+    const childClass = className + " " + s.formControl__field + ' ' + `${hasError ? s.formControl__fieldError : ''}`    
     return (
         <div className={s.formControl}>
             {children({...input, ...props, className:childClass})}

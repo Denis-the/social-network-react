@@ -7,65 +7,144 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* app */
+.app-wrapper {
+  background-color: var(--surface-b);
+  min-width: 480px;
 }
 
 .app-wrapper__header {
-  display: flex;
-}
 
-.app-wrapper {
-
+  
 }
 
 .app-wrapper__content {
   display: flex;
-  width: 100%;
+  min-height: calc(100vh - 3.5rem);
+  background-color: inherit;
 }
 
 .app-wrapper__footer {
-  display: flex;
 
+}
+
+.app-content__sidebar {
+  flex: 0 0 200px;  
+  background-color: inherit;
 }
 
 .app-content__wrapper {
   flex: 1 0 500px;
   min-width: 400px;
-  padding:10px;
-  background-color: #f8f8f8;
+  background-color: var(--surface-c);
 }
 
 /* users */
 .users-wrapper {
 
+
   
 }
-
-.users__item {
-  padding: 5px 0 15px 0;
-}
-
-.users__item:hover {
-  background-color: #f0f0f0;
+.users-item__container {
 
 }
 
-.UserItem__user-name {
+.users-item__item {
+  padding: 1rem;
+  transition-property: background-color;
+  transition-duration: 0.6s;
+}
+
+.users-item__item a {
+  text-decoration: none;
+}
+
+.users-item__item:hover {
+  background-color: var(--surface-d);
+
+}
+
+.users-item__user-info {
+  margin-left: 10px;
+}
+
+.users-item__avatar {
+
+}
+
+.users-item__name {
   padding:10px;
   font-weight: 600;
-
+  color: var(--text-color);
 }
 
-.UserItem__user-status {
+.users-item__status {
   padding: 0 0 0 10px;
   font-size: 12px;
-  color: #777;
+  color: var(--text-color-secondary);
+}
+
+.users__search-panel {
+  position: sticky;
+  top: 0;
+  background-color: var(--surface-d);
 }
 
 /* sidebar */
 .sidebar-wrapper {
-    flex: 0 0 200px;
-
+  height:100%;
+  background-color: inherit;
 }
+
+.sidebar_nav {
+  
+  position: sticky;
+  top: 0;
+  padding: 2rem 0;
+  background-color: inherit;
+}
+
+
+
+.sidebar_nav a {
+  display: block;
+  padding: 0.4rem 1.2rem;
+  height:100%;
+  text-decoration: none;
+}
+
+.sidebar_nav-item {
+  height: 2rem;
+  transition-property: background-color;
+  transition-duration: 0.6s;
+  
+}
+
+.sidebar_nav-item .active {
+  background-color: var(--surface-400);
+  font-weight: 600;
+}
+
+.sidebar_nav-item:hover {
+  background-color: var(--surface-d);
+}
+
+.nav-item__text {
+  color: var(--text-color);
+}
+
+
+/* header */
+.header__container {
+  background-color: var(--primary-color);
+  height: 3.5rem;
+}
+
+.header__logo {
+  height: 60px;
+}
+
+.header__login-section {
+  float:right
+} 
+

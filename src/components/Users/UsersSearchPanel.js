@@ -36,13 +36,13 @@ const UsersSearchForm = ({submitAction, currentPage, perPage, searchTerm, search
 const UsersSearchPanel = React.memo(({...props}) => {
     const requestUsersHandler = useRequestUsersHandler()
     return (
-        <div>
+        <div className="users__search-panel">
             <UsersSearchForm
-            {...props}
+                {...props}
             submitAction={requestUsersHandler.requestUsers}
             ></UsersSearchForm>
             <UsersPageNav requestUsersHandler={requestUsersHandler}
-            {...props}/>
+                {...props}/>
         </div>
     )
 })

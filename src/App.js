@@ -1,5 +1,3 @@
-// import './App.css';
-
 import React from 'react'
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
@@ -23,11 +21,11 @@ class App extends React.Component {
 
     return (
       <div className="app-wrapper">
-        <HeaderContainer />
+        <header className="app-wrapper__header"><HeaderContainer /></header>
         
-
         <div className="app-wrapper__content">
-          <SideBar store={this.props.store} />
+          <div className="app-content__sidebar"><SideBar store={this.props.store} /></div>
+
           <div className="app-content__wrapper">
             <Switch>
               <Route path='/profile/:userId?' component={ProfileContainer} />
@@ -36,9 +34,10 @@ class App extends React.Component {
               <Route path='/login' render={() => <Login />} />
             </Switch>
           </div>
+
         </div>
 
-        <footer className='app-footer'></footer>
+        <footer className='app-wrapper__footer'></footer>
       </div>
     )
   }

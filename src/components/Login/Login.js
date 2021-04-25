@@ -6,6 +6,8 @@ import Captcha from "../common/Captcha/Captcha";
 import { InputFormElem } from "../common/FormElems/FormElems";
 import { requiredField, maxLengthFieldCreator, 
     minLengthFieldCreator, composeValidators } from '../../utils/validators/validators';
+import { getIsAuth } from "../../redux/selectors/authSelectors";
+import { Redirect } from "react-router";
 
 const maxLengthField_15 = maxLengthFieldCreator(15);
 const minLengthField_6 = minLengthFieldCreator(6);
@@ -52,7 +54,8 @@ const LoginForm = (props) => {
 }
 
 const Login = (props) => {
-   
+    const isAuth = useSelector(getIsAuth);
+    if (isAuth) return <Redirect to='/profile' />
     return <LoginForm />
 }
 
