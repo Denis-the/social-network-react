@@ -32,8 +32,6 @@ const ProfileContainer = (props) => {
         getStatus(props.match.params.userId || authId);
     }, [props.match.params.userId, authId]);
 
-    console.log('render profile')
-    // console.log(status, profileInfo, isFetching)
     if (!props.match.params.userId) { return <Redirect to={'/profile/' + authId} /> }
     return (
         <Profile

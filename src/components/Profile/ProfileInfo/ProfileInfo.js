@@ -13,9 +13,6 @@ const ProfileInfo = React.memo((props) => {
             src={props.profileInfo.photos.large}/>
             <div>
                 {props.profileInfo.fullName}<br/>
-                <ProfileStatus 
-                changeStatus={props.changeStatus}
-                status={props.status} ></ProfileStatus>
                 <ProfileStatusWithHooks
                 changeStatus={props.changeStatus}
                 status={props.status} ></ProfileStatusWithHooks>

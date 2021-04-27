@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import {  getFollowingInProgress, getIsFetching, getTotalUsersCount, 
     getUsers, getQueryParams } from '../../redux/selectors/usersSelectors';
-import Preloader from '../common/Preloader/Preloader';
 import Users from './Users';
 import { useRequestUsersHandler } from '../../hooks/users/usersHooks';
+import Preloader from '../common/Preloader/Preloader';
 
 
 const UsersContainer = (props) => {

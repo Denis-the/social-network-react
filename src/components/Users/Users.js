@@ -11,7 +11,8 @@ const Users = React.memo(({users, isFetching, followingInProgress,
     return (
         <div className='users-wrapper'>
             <UsersSearchPanel 
-            currentPage={currentPage} perPage={perPage} searchTerm={searchTerm} searchFollowed={searchFollowed}
+            currentPage={currentPage} perPage={perPage} searchTerm={searchTerm} 
+            searchFollowed={searchFollowed} isFetching={isFetching}
             />
             <div className='users-item__container'>
                 {users.map((user) => (

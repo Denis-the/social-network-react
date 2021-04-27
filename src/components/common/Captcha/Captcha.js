@@ -1,12 +1,12 @@
 import { Field } from "react-final-form"
-import { InputFormElem } from "../FormElems/FormElems";
+import { InputFormElem } from "../FormElems/PrimeReactFormElems";
 
 
 
 const Captcha = ({url}) => {
     return (
         <div>
-            <img src={url}/><br/>
+            <img className="p-error" src={url}/><br/>
             <Field render={InputFormElem} name="captcha"></Field> 
         </div>
     )

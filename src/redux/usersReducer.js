@@ -101,7 +101,7 @@ export const fetchUsers = ({ page = 1, perPage = 10, term = null, followed = nul
         dispatch(setCurrentPage(page));
         dispatch(setPerPageCount(perPage));
         dispatch(setSearchTerm(term));
-        dispatch(setSearchFollowed(followed));
+        dispatch(setSearchFollowed(JSON.parse(followed)));
     } catch (err) {
         console.log(err);
     }

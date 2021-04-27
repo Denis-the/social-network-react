@@ -1,6 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Provider, connect } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { initilizeApp } from './redux/appReducer';
 import SideBar from './components/SideBar/SideBar.js'
 import Dialogs from './components/Dialogs/Dialogs.js';
@@ -9,6 +9,7 @@ import ProfileContainer from './components/Profile/ProfileContainerWithHooks';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import Preloader from './components/common/Preloader/Preloader';
+import store from './redux/redux-store';
 
 
 class App extends React.Component {
@@ -24,7 +25,7 @@ class App extends React.Component {
         <header className="app-wrapper__header"><HeaderContainer /></header>
         
         <div className="app-wrapper__content">
-          <div className="app-content__sidebar"><SideBar store={this.props.store} /></div>
+          <div className="app-content__sidebar"><SideBar /></div>
 
           <div className="app-content__wrapper">
             <Switch>
@@ -47,4 +48,15 @@ const mapStateToProps = state => ({
   isAppInitialized: state.app.initialized,
 })
 
-export default connect(mapStateToProps, { initilizeApp })(App);
+export const AppContainer = connect(mapStateToProps, { initilizeApp })(App);
+
+const MainApp = () => {
+  return <BrowserRouter>
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  </BrowserRouter>
+}
+
+
+export default MainApp

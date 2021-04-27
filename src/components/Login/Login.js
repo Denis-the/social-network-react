@@ -3,11 +3,13 @@ import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form'
 import { loginToServer } from "../../redux/authReducer";
 import Captcha from "../common/Captcha/Captcha";
-import { InputFormElem } from "../common/FormElems/FormElems";
+// import { InputFormElem } from "../common/FormElems/FormElems";
+import { InputFormElem, CheckBoxFormElem } from "../common/FormElems/PrimeReactFormElems";
 import { requiredField, maxLengthFieldCreator, 
     minLengthFieldCreator, composeValidators } from '../../utils/validators/validators';
 import { getIsAuth } from "../../redux/selectors/authSelectors";
 import { Redirect } from "react-router";
+import { Button } from "primereact/button";
 
 const maxLengthField_15 = maxLengthFieldCreator(15);
 const minLengthField_6 = minLengthFieldCreator(6);
@@ -31,22 +33,27 @@ const LoginForm = (props) => {
         >   
             {({ form, handleSubmit, submitError }) => {
                 return (
-                    <form onSubmit={handleSubmit}>
-                        { submitError &&  <p>{submitError}</p>}
+                    <form className="p-fluid" onSubmit={handleSubmit}>
+                        <div className="p-d-flex p-jc-center">
+                            <div className='card'>
+                                <h4 className='p-text-center'>LOGIN</h4>
 
-                        <label>Email:</label>
-                        <Field name='email' type='email' validate={requiredField} component={InputFormElem}/>
-                        <br/>
-                        <label>Pass:</label>
-                        <Field name='password'  type='password'
-                        validate={composeValidators(requiredField, maxLengthField_15, minLengthField_6)} 
-                        component={InputFormElem}/>
-                        <br/>
-                        <label>remember me</label>
-                        <Field name="rememberMe" component={InputFormElem} type="checkbox"/>
-                        <br/>
-                        <Field name="submit" component="button" type="submit">Enter</Field>
-                        { isCaptchaRequired && <Captcha url={captchaUrl} />}
+                                <Field id='Email' name='email' type='email' validate={requiredField} component={InputFormElem} />
+                                <br />
+                                <Field id='Password' name='password' type='password' component={InputFormElem}
+                                    validate={composeValidators(requiredField, maxLengthField_15, minLengthField_6)} />
+
+                                <Field id='Remember me' name="rememberMe" type="checkbox" component={CheckBoxFormElem} />
+
+                                {isCaptchaRequired && <Captcha url={captchaUrl} />}
+                                {submitError && <p className='p-error'>{submitError}</p>}
+
+                                <Button type="submit" label="Submit" className="p-mt-2" />
+                                
+
+                                
+                            </div>
+                        </div>
                     </form>
                 )
             }}
