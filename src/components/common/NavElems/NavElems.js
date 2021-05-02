@@ -1,16 +1,18 @@
-export const SelectOption = ({onSelect, value, options}) => {
-    console.log(options)
+import { ButtonUI, SelectUI } from "../UI-components/UIElems"
+
+
+export const SelectOption = ({optionsData, keyName, ...props}) => {
     return (
-        <select onChange={onSelect} value={value}>
-            {options.map(option => <option key={option.value} {...option}>{option.value}</option>)}
-        </select>
+        <SelectUI {...props}>
+            {optionsData.map(option => <option key={option[keyName || 'value']} {...option}>{option.value}</option>)}
+        </SelectUI>
     )
 }
 
-export const ButtonGroup = ({buttonsData}) => {
+export const ButtonGroup = ({buttonsData, keyName, ...props}) => {
     return ( 
-        <div>
-            {buttonsData.map(button => <button key={button.value} {...button}>{button.value}</button>)}
+        <div {...props}>
+            {buttonsData.map(data => <ButtonUI key={data[keyName || 'value']} {...data}>{data.value}</ButtonUI>)}
         </div>
     )
 }

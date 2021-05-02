@@ -4,24 +4,25 @@ import UserAvatar from '../common/UserAvatar/UserAvatar';
 
 const UserItem = ({ user, followingInProgress, follow, unfollow, }) => {
     const followUnfollowButton = user.followed ?
-        <ButtonUI disabled={followingInProgress.has(user.id)} className="p-button-sm" onClick={() => unfollow(user.id)}>Unfollow</ButtonUI>
-        : <ButtonUI disabled={followingInProgress.has(user.id)} className="p-button-sm" onClick={() => follow(user.id)}>Follow</ButtonUI>
+        <ButtonUI disabled={followingInProgress.has(user.id)} onClick={() => unfollow(user.id)}>Unfollow</ButtonUI>
+        : <ButtonUI disabled={followingInProgress.has(user.id)} onClick={() => follow(user.id)}>Follow</ButtonUI>
 
     return (
         <div className='users-item__item'>
-            <NavLink to={'/profile/' + user.id}>
-            <div className='p-d-flex users-item__user-info'>
-                <div className='users-item__avatar'><UserAvatar imageUrl={user.photos.small}/></div>
-                <div>
+            <div className='p-d-inline-flex users-item__user-info'>
+                <div className='users-item__avatar'>
+                    <NavLink to={'/profile/' + user.id}><UserAvatar imageUrl={user.photos.small}/></NavLink>
+                </div>
+                <NavLink to={'/profile/' + user.id}>
                     <span className='users-item__name'>{user.name}</span>
                     <div className='users-item__status'>{user.status}</div>
-                </div>
+                </NavLink>
             </div>
-            </NavLink>
-            {followUnfollowButton}
+            <div className='users-item__control'>
+                {followUnfollowButton}
+            </div>
         </div>
     )
-
 }
 
 export default UserItem;
