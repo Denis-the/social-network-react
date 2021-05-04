@@ -50,7 +50,7 @@ const UsersContainer = (props) => {
     return (
         <>
             { isFetching ? <Preloader/> :  null }
-            <Users users={users} pagesTotal={pagesTotal}  isFetching={isFetching} 
+            <Users users={users} pagesTotal={pagesTotal} totalUsersCount={totalUsersCount}  isFetching={isFetching} 
                 followingInProgress={followingInProgress} {...queryParams} />
         </>
     )

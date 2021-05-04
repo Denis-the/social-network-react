@@ -77,7 +77,7 @@ const usersReducer = (state = initialUsersState, action) => {
 
 // action creators
 export const setPerPageCount = newCount => ({ type: SET_PER_PAGE_COUNT, payload: newCount, });
-export const setTotalUsersCount = newCount => ({ type: SET_PER_PAGE_COUNT, payload: newCount, });
+export const setTotalUsersCount = newCount => ({ type: SET_TOTAL_USERS_COUNT, payload: newCount, });
 export const setCurrentPage = currentPage => ({ type: SET_CURRENT_PAGE, payload: currentPage, });
 export const setUsers = newUsers => ({ type: SET_USERS, payload: newUsers, });
 export const setSearchTerm = searchTerm => ({ type: SET_SEARCH_TERM, payload: searchTerm });

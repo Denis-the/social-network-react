@@ -2,7 +2,7 @@ import React from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
-import { InlineFormElemWrapper } from '../styled/styled-components';
+import { InlineFormElemWrapper, StyledInputText } from '../styled/styled-components';
 import { SelectButton } from 'primereact/selectbutton';
 
 
@@ -19,11 +19,21 @@ export const InputFE = (props) => {
         { ({meta, ...props}) => (
             <InlineFormElemWrapper >
                 <span className='p-float-label'>
-                    <InputText {...props}/>
+                    <StyledInputText {...props}/>
                     <label htmlFor={props.id}>{props.id}</label>
                 </span>
                 {getFormErrorMessage(meta)}
             </InlineFormElemWrapper>
+        )}</FormControl>
+}
+
+export const ClearInputFE = (props) => {
+    return <FormControl {...props} >
+        { ({meta, ...props}) => (
+            <div>
+                <StyledInputText {...props}/>
+                {getFormErrorMessage(meta)}
+            </div>
         )}</FormControl>
 }
 

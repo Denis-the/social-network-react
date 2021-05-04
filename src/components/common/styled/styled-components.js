@@ -1,3 +1,4 @@
+import { InputText } from "primereact/inputtext";
 import styled from "styled-components";
 
 export const InlineFormElemWrapper = styled.div`
@@ -6,9 +7,15 @@ export const InlineFormElemWrapper = styled.div`
 `;
 
 
+export const StyledInputText = styled(InputText)`
+    width:${ props => props.styled?.width ? props => props.styled.width  : 'unset'};
+
+`
+
+
 export const ButtonBase = styled.button`
-    ${console.log(props => props.styled)}
-    position:unset;
-    margin:0.2rem;
-    width:${ props => props.styled?.width || '100px'}
+    justify-content:center;
+    position:${ props => props.styled?.position ? props => props.styled.position  : 'unset'};
+    width:${ props => props.styled?.width ? props => props.styled.width  : 'unset'};
+
 `;
