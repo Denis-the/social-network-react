@@ -1,0 +1,43 @@
+/* sidebar */
+.sidebar-wrapper {
+    height:100%;
+    background-color: inherit;
+  }
+  
+  .sidebar_nav {
+    
+    position: sticky;
+    top: 0;
+    padding: 2rem 0;
+    background-color: inherit;
+  }
+  
+  
+  
+  .sidebar_nav a {
+    display: block;
+    padding: 0.4rem 1.2rem;
+    height:100%;
+    text-decoration: none;
+  }
+  
+  .sidebar_nav-item {
+    height: 2rem;
+    transition-property: background-color;
+    transition-duration: 0.6s;
+    
+  }
+  
+  .sidebar_nav-item .active {
+    background-color: var(--surface-400);
+    font-weight: 600;
+  }
+  
+  .sidebar_nav-item:hover {
+    background-color: var(--surface-d);
+  }
+  
+  .nav-item__text {
+    color: var(--text-color);
+  }
+  

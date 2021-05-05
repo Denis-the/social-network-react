@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 import { ButtonBase } from '../styled/styled-components';
-import s from './ui.module.css';
-
 
 export const ButtonUI = ({children, className, ...props}) => {
     const btnClass = classNames('p-component', 'p-button', className);

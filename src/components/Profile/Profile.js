@@ -3,8 +3,6 @@ import Preloader from '../common/Preloader/Preloader'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 
 const Profile = React.memo((props) => {
-
-    console.log('Profile')
     return (
         <div>
             { (props.isFetching) ? <Preloader/> : null }

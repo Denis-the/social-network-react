@@ -1,13 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getAuthUserData, logoutFromServer } from '../../redux/authReducer';
+import { withRouter } from 'react-router';
+import { compose } from 'redux';
+import { logoutFromServer } from '../../redux/authReducer';
 import Header from './Header';
 
-class HeaderAPIContainer extends React.Component {
+class HeaderContainer extends React.Component {
+    loginToServer(e) {
+        this.props.history.push('/login')
+        e.target.blur()
+    }
+
     render() {
+        console.log(this.props)
         return (
             <Header
             {...this.props}
+            loginToServer={this.loginToServer.bind(this)}
             />
         )
     }
@@ -19,5 +28,9 @@ const mapStateToProps = (state) => ({
     email: state.auth.email,
 })
 
-const HeaderContainer = connect(mapStateToProps, {getAuthUserData, logoutFromServer})(HeaderAPIContainer);
-export default HeaderContainer;
+const HeaderContainerConnected = compose(
+    connect(mapStateToProps, {logoutFromServer}),
+    withRouter,
+)(HeaderContainer)
+;
+export default HeaderContainerConnected;

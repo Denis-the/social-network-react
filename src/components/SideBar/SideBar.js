@@ -1,11 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import ChosenFriends from './ChosenFriends/ChosenFriends';
 
-const SideBar = (props) => {
-    const chosenFriendsList = useSelector( (state) => state.sideBarData.chosenFriends );
-    
+const SideBar = (props) => {    
     return (
         <div className='sidebar-wrapper'>
             <nav className='sidebar_nav'>
@@ -19,8 +15,6 @@ const SideBar = (props) => {
                     <NavLink to='/users' activeClassName='active'><span className='nav-item__text'>Users</span></NavLink>
                 </div>
             </nav>
-
-            <ChosenFriends friendsList={chosenFriendsList} />
         </div>
     )
 }
