@@ -1,6 +1,6 @@
 import React from 'react'
 import Preloader from '../common/Preloader/Preloader'
-import ProfileInfo from './ProfileInfo/ProfileInfo'
+import ProfileInfo from './ProfileInfo'
 
 const Profile = React.memo((props) => {
     return (

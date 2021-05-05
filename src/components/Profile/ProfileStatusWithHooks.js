@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeStatus } from '../../../redux/profileReducer';
-import { getAuthId } from '../../../redux/selectors/authSelectors';
-import { maxLengthFieldCreator } from '../../../utils/validators/validators';
-import { ClearInputFE } from '../../common/FormElems/PrimeReactFormElems';
+import { changeStatus } from '../../redux/profileReducer';
+import { getAuthId } from '../../redux/selectors/authSelectors';
+import { maxLengthFieldCreator } from '../../utils/validators/validators';
+import { ClearInputFE } from '../common/FormElems/PrimeReactFormElems';
 
 const maxLengthField_300 = maxLengthFieldCreator(300);
 

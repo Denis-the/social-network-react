@@ -1,13 +1,13 @@
 import React from "react";
-import avatarPlaceholder from '../../../assets/images/User_avatar_placeholder.jpg'
+import avatarPlaceholder from '../../assets/images/User_avatar_placeholder.jpg'
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
-import { PanelUI } from "../../common/UI-components/UIElems";
+import { PanelUI } from "../common/UI-components/UIElems";
 
 
 const Contacts = React.memo(({contacts}) => {
     const contactsJSX = Object.entries(contacts)
         .filter(([key, value]) => value)
-        .map( ([key, value]) => <div><a target="_blank" href={`//${value}`}>{key}</a></div>)
+        .map( ([key, value]) => <div key={key}><a target="_blank" href={`//${value}`}>{key}</a></div>)
 
     const body = <div>{contactsJSX.length ? contactsJSX : <span>user doesn't left any contacts yet</span>}</div> 
     return  <PanelUI title='Contacts' body={body}/>
