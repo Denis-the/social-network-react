@@ -12,7 +12,6 @@ const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileCo
 const UsersContainer = React.lazy(() => import('./components/Users/UsersContainerWithHooks'));
 const Dialogs = React.lazy(() => import('./components/Dialogs/Dialogs.js'));
 
-
 class App extends React.Component {
   componentDidMount() {
     this.props.initilizeApp();
