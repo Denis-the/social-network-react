@@ -1,4 +1,5 @@
 import { profileAPI } from "../api/api";
+import { getAuthUserData } from "./authReducer";
 
 const SET_PROFILE = 'social/profile/SET-PROFILE';
 const TOGGLE_IS_FETCHING = 'social/profile/TOGGLE_IS_FETCHING';
@@ -16,7 +17,7 @@ const profileReducer = (state = initialProfileState, action) => {
     switch(action.type) {
         case SET_PROFILE: {
             return {...state, profileInfo: action.payload}
-        };  
+        }  
         case TOGGLE_IS_FETCHING: {
             return {...state, isFetching: action.payload}
         }
@@ -31,6 +32,7 @@ const profileReducer = (state = initialProfileState, action) => {
 
 // AC
 export const setProfile = profileInfo => ({ type:SET_PROFILE, payload:profileInfo,});
+export const clearProfile = () => ({ type:SET_PROFILE, payload:null});
 export const toggleIsFetching = isFetching => ({type:TOGGLE_IS_FETCHING, payload:isFetching});
 export const setStatus = newStatus => ({type:SET_STATUS, payload:newStatus});
 
@@ -69,5 +71,22 @@ export const getStatus = (userId) => async (dispatch) => {
     }
     dispatch(toggleIsFetching(false));
 }
+
+export const changeProfileInfo = profileInfo => async dispatch => {
+    dispatch(toggleIsFetching(true));
+    let setProfileResponse;
+    try {
+        setProfileResponse = await profileAPI.setProfileInfo(profileInfo);
+        if (setProfileResponse.resultCode !== 0) throw setProfileResponse
+        dispatch(setProfile(profileInfo));
+        dispatch(getAuthUserData())
+    } catch (err) {
+        debugger
+        const errorMessages = setProfileResponse?.messages.join('<br/>');
+        return errorMessages
+    } finally {
+        dispatch(toggleIsFetching(false));
+    }
+} 
 
 export default profileReducer;

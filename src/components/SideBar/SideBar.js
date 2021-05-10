@@ -14,6 +14,9 @@ const SideBar = (props) => {
                 <div className='sidebar_nav-item'>
                     <NavLink to='/users' activeClassName='active'><span className='nav-item__text'>Users</span></NavLink>
                 </div>
+                <div className='sidebar_nav-item'>
+                    <NavLink to='/settings' activeClassName='active'><span className='nav-item__text'>Settings</span></NavLink>
+                </div>
             </nav>
         </div>
     )

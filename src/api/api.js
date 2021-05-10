@@ -50,4 +50,8 @@ export const profileAPI = {
     async setStatus(newStatus) {
         return instance.put('profile/status', {status:newStatus}).then( response => response.data )
     },
+    async setProfileInfo(profileInfo) {
+        return instance.put('profile',  profileInfo ).then( response => response.data)
+    },
+
 }

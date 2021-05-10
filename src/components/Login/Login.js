@@ -3,7 +3,6 @@ import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form'
 import { loginToServer } from "../../redux/authReducer";
 import Captcha from "../common/Captcha/Captcha";
-// import { InputFE } from "../common/FormElems/FormElems";
 import { InputFE, CheckBoxFE } from "../common/FormElems/PrimeReactFormElems";
 import { requiredField, maxLengthFieldCreator, 
     minLengthFieldCreator, composeValidators } from '../../utils/validators/validators';
@@ -29,7 +28,7 @@ const LoginForm = (props) => {
     return (
         <Form
             onSubmit={ fields => login(fields).then( err => ({[FORM_ERROR]: err}))}
-            initialValues={{ email: 'd.rozumnyu@gmail.com', password: 'umfLSzUny3G!FYY', rememberMe:true, captcha:'',}}>  
+            initialValues={{ email: 'd.rozumnyu@gmail.com', password: '', rememberMe:true, captcha:'',}}>  
                 {({ form, handleSubmit, submitError }) => (
                     <form className="p-fluid" onSubmit={handleSubmit}>
                         <div className="p-d-flex p-jc-center">

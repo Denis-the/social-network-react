@@ -2,7 +2,7 @@ import React from 'react';
 import { Checkbox } from 'primereact/checkbox';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
-import { InlineFormElemWrapper, StyledInputText } from '../styled/styled-components';
+import { InlineFormElemWrapper, StyledInputText, StyledTextarea } from '../styled/styled-components';
 import { SelectButton } from 'primereact/selectbutton';
 
 
@@ -20,6 +20,19 @@ export const InputFE = (props) => {
             <InlineFormElemWrapper >
                 <span className='p-float-label'>
                     <StyledInputText {...props}/>
+                    <label htmlFor={props.id}>{props.id}</label>
+                </span>
+                {getFormErrorMessage(meta)}
+            </InlineFormElemWrapper>
+        )}</FormControl>
+}
+
+export const TextAreaFE = (props) => {
+    return <FormControl {...props} >
+        { ({meta, ...props}) => (
+            <InlineFormElemWrapper >
+                <span className='p-float-label'>
+                    <StyledTextarea {...props}/>
                     <label htmlFor={props.id}>{props.id}</label>
                 </span>
                 {getFormErrorMessage(meta)}
@@ -51,7 +64,7 @@ export const CheckBoxFE = (props) => {
 export const SingleSelectButtonsFE = (props) => {
     return <FormControl {...props} >
     { ({meta, ...props}) => {
-        props.value == '' ? props.value = null : props.value = props.value;
+        props.value === '' ? props.value = null : props.value = props.value;
         return  <InlineFormElemWrapper>
             <SelectButton {...props}/>
         </InlineFormElemWrapper>

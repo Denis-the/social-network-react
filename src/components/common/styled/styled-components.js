@@ -1,4 +1,5 @@
 import { InputText } from "primereact/inputtext";
+import { InputTextarea } from 'primereact/inputtextarea';
 import styled from "styled-components";
 
 export const InlineFormElemWrapper = styled.div`
@@ -9,7 +10,10 @@ export const InlineFormElemWrapper = styled.div`
 
 export const StyledInputText = styled(InputText)`
     width:${ props => props.styled?.width ? props => props.styled.width  : 'unset'};
-
+`
+export const StyledTextarea = styled(InputTextarea)`
+    width:${ props => props.styled?.width ? props => props.styled.width  : 'unset'};
+    height:${ props => props.styled?.height ? props => props.styled.height  : 'unset'};
 `
 
 
