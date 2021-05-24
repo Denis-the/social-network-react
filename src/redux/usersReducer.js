@@ -28,7 +28,10 @@ const initialUsersState = {
 const usersReducer = (state = initialUsersState, action) => {
     switch (action.type) {
         case SET_PER_PAGE_COUNT: {
-            if (action.payload >= 1 && action.payload <= 100) return { ...state, perPage: action.payload };
+            if (action.payload >= 1 && action.payload <= 100) {
+                return { ...state, perPage: action.payload };
+            }
+            return { ...state}
         }
         case SET_TOTAL_USERS_COUNT: {
             return { ...state, totalUsersCount: action.payload }

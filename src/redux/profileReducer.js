@@ -37,7 +37,7 @@ export const toggleIsFetching = isFetching => ({type:TOGGLE_IS_FETCHING, payload
 export const setStatus = newStatus => ({type:SET_STATUS, payload:newStatus});
 
 // thunks
-export const getProfile = (userId) => async (dispatch) => {
+export const fetchProfile = (userId) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
     try {
         const profileData = await profileAPI.getProfileData(userId);
@@ -53,7 +53,7 @@ export const changeStatus = (newStatus) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
     try {
         const setStatusResponse = await profileAPI.setStatus(newStatus);
-        if (!!setStatusResponse.resultCode) throw new Error("status hadn't been set");
+        if (setStatusResponse.resultCode !== 0) throw new Error("status hasn't been set");
         dispatch(setStatus(newStatus));
     } catch (err) {
         console.error(err);
@@ -61,7 +61,7 @@ export const changeStatus = (newStatus) => async (dispatch) => {
     dispatch(toggleIsFetching(false));
 }
 
-export const getStatus = (userId) => async (dispatch) => {
+export const fetchStatus = (userId) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
     try {
         const getStatusResponse = await profileAPI.getStatus(userId);
@@ -74,6 +74,7 @@ export const getStatus = (userId) => async (dispatch) => {
 
 export const changeProfileInfo = profileInfo => async dispatch => {
     dispatch(toggleIsFetching(true));
+    let errorMessages = null;
     let setProfileResponse;
     try {
         setProfileResponse = await profileAPI.setProfileInfo(profileInfo);
@@ -81,12 +82,11 @@ export const changeProfileInfo = profileInfo => async dispatch => {
         dispatch(setProfile(profileInfo));
         dispatch(getAuthUserData())
     } catch (err) {
-        debugger
-        const errorMessages = setProfileResponse?.messages.join('<br/>');
-        return errorMessages
+        errorMessages = setProfileResponse?.messages.join('<br/>');
     } finally {
         dispatch(toggleIsFetching(false));
     }
+    return errorMessages;
 } 
 
 export default profileReducer;

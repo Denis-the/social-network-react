@@ -7,11 +7,11 @@ import usersReducer from "./usersReducer";
 import authReducer from './authReducer';
 import appReducer from "./appReducer";
  
-let reducers = combineReducers({
+const reducers = combineReducers({
     profileData: profileReducer,
     dialogsData: dialogsReducer,
     sideBarData: sideBarReducer,
-    usersReducer: usersReducer,
+    usersReducer,
     auth: authReducer,
     app: appReducer,
 })
