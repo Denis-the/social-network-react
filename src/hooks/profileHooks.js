@@ -5,6 +5,7 @@ import {
   clearProfile,
   fetchProfile,
   fetchStatus,
+  uploadProfilePhoto,
 } from "../redux/profileReducer";
 
 export const useFetchProfileFn = () => {
@@ -28,6 +29,15 @@ export const useClearThenFetchProfileFn = () => {
 export const useChangeProfileFn = () => {
   const dispatch = useDispatch();
   return (fields) => dispatch(changeProfileInfo(fields));
+};
+
+export const useUploadProfilePhotoFn = () => {
+  const dispatch = useDispatch();
+  return (imageFile) => {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    return dispatch(uploadProfilePhoto(formData))
+  };
 };
 
 export const useChangeStatusFn = () => {

@@ -28,7 +28,7 @@ const LoginForm = () => {
         login(fields).then((err) => ({ [FORM_ERROR]: err }))
       }
       initialValues={{
-        email: "d.rozumnyu@gmail.com",
+        email: "",
         password: "",
         rememberMe: true,
         captcha: "",

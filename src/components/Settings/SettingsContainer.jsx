@@ -25,7 +25,11 @@ const SettingsContainer = React.memo(() => {
   return (
     <>
       {isFetching ? <Preloader /> : null}
-      <Settings profileInfo={profileInfo} />
+      {profileInfo?.userId === authId ? (
+        <Settings profileInfo={profileInfo} />
+      ) : (
+        !isFetching && <div>Something went wrong, please reload this page</div>
+      )}
     </>
   );
 });

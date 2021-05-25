@@ -2,8 +2,8 @@ import { profileAPI } from "../api/api";
 import { getAuthUserData } from "./authReducer";
 
 const SET_PROFILE = 'social/profile/SET-PROFILE';
-const TOGGLE_IS_FETCHING = 'social/profile/TOGGLE_IS_FETCHING';
 const SET_STATUS = 'social/profile/SET-STATUS';
+const TOGGLE_IS_FETCHING = 'social/profile/TOGGLE_IS_FETCHING';
 
 const initialProfileState = {
         profileInfo:  null,
@@ -87,6 +87,22 @@ export const changeProfileInfo = profileInfo => async dispatch => {
         dispatch(toggleIsFetching(false));
     }
     return errorMessages;
-} 
+}
 
+export const uploadProfilePhoto = formData => async dispatch => {
+    dispatch(toggleIsFetching(true));
+    let errorMessages = null;
+    let response;
+    try {
+        response = await profileAPI.setProfilePhoto(formData);
+        if (response.resultCode !== 0) throw response
+        // dispatch(setProfile(profileInfo));
+        // dispatch(getAuthUserData())
+    } catch (err) {
+        errorMessages = response?.messages.join('<br/>');
+    } finally {
+        dispatch(toggleIsFetching(false));
+    }
+    return errorMessages;
+}
 export default profileReducer;

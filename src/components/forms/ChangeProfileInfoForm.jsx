@@ -30,7 +30,6 @@ const ChangeProfileInfoForm = memo(({ profileInfo }) => {
     >
       {({ form, handleSubmit, submitError }) => (
         <form onSubmit={handleSubmit} className="">
-          {console.log(form.getState())}
           <div>
             <h4>Main info</h4>
             <div>

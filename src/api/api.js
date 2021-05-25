@@ -68,4 +68,9 @@ export const profileAPI = {
       .put("profile", profileInfo)
       .then((response) => response.data);
   },
+  async setProfilePhoto(formData) {
+    return instance
+      .put("profile/photo", formData)
+      .then((response) => response.data);
+  },
 };

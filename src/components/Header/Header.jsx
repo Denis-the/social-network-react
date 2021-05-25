@@ -1,12 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import logo from "../../logo.svg";
 import { ButtonUI } from "../common/UI-components/UIElems";
 
 const Header = React.memo(({ userId, login, email, logoutFromServer, loginToServer }) => (
   <div className="header__container ">
     <img className="header__logo" alt="logo" src={logo} />
-
     <div className="header__auth-section">
       {userId ? (
         <>
@@ -33,12 +31,6 @@ const Header = React.memo(({ userId, login, email, logoutFromServer, loginToServ
 ));
 
 Header.displayName = 'Header';
-Header.propTypes = {
-  userId: PropTypes.number.isRequired, 
-  login: PropTypes.string.isRequired, 
-  email: PropTypes.string.isRequired, 
-  logoutFromServer: PropTypes.func.isRequired, 
-  loginToServer: PropTypes.func.isRequired
-}
+
 
 export default Header;
