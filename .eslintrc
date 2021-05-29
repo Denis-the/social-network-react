@@ -21,6 +21,7 @@
     "react/prop-types": ["warn"],
     "import/prefer-default-export": ["off"],
     "no-return-assign": ["off"],
-    "arrow-body-style": ["warn"]
+    "arrow-body-style": ["warn"],
+    "no-unused-vars": ["warn"]
   }
 }

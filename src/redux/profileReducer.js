@@ -36,6 +36,7 @@ export const clearProfile = () => ({ type:SET_PROFILE, payload:null});
 export const toggleIsFetching = isFetching => ({type:TOGGLE_IS_FETCHING, payload:isFetching});
 export const setStatus = newStatus => ({type:SET_STATUS, payload:newStatus});
 
+
 // thunks
 export const fetchProfile = (userId) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
@@ -96,8 +97,6 @@ export const uploadProfilePhoto = formData => async dispatch => {
     try {
         response = await profileAPI.setProfilePhoto(formData);
         if (response.resultCode !== 0) throw response
-        // dispatch(setProfile(profileInfo));
-        // dispatch(getAuthUserData())
     } catch (err) {
         errorMessages = response?.messages.join('<br/>');
     } finally {

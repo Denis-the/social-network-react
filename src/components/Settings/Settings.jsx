@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { PanelUI } from "../common/UI-components/UIElems";
 import ChangeProfileInfoForm from "../forms/ChangeProfileInfoForm"
-import ChangeProfilePhoto from "../forms/ChangeProfilePhoto";
+import ChangeProfilePhotoForm from "../forms/ChangeProfilePhotoForm";
 
 
 const Settings = React.memo(({ profileInfo }) => (
@@ -14,7 +14,7 @@ const Settings = React.memo(({ profileInfo }) => (
         />
         <PanelUI
           title="Update profile photo"
-          body={<ChangeProfilePhoto profileInfo={profileInfo} />}
+          body={<ChangeProfilePhotoForm profileInfo={profileInfo} />}
         />
       </div>
     </div>
