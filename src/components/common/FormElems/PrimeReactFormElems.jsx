@@ -8,15 +8,15 @@ import {
   StyledTextarea,
 } from "../styled/styled-components";
 
-const isFormFieldValid = (meta) => meta.touched && meta.error && !meta.active;
+const isFormFieldValid = (meta) => meta.touched && (meta.error || meta.submitError)  && !meta.active;
 const getFormErrorMessage = (meta) =>
-  isFormFieldValid(meta) && <small className="p-error">{meta.error}</small>;
+  isFormFieldValid(meta) && <small className="p-error">{meta.error || meta.submitError}</small>;
 
 const FormControl = ({ input, meta, children, className, ...props }) => {
-  const childClass = classNames(
+  const childClass = classNames({
     className,
-    isFormFieldValid(meta) ? "p-invalid" : null
-  );
+    'p-invalid': isFormFieldValid(meta),
+  });
   return children({ ...input, ...props, className: childClass, meta });
 };
 

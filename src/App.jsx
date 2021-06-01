@@ -1,14 +1,14 @@
 import React, { Suspense, useEffect } from "react";
-import { Provider, connect } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import PropTypes from "prop-types";
+import store from "./redux/redux-store";
+import { useInitializeAppFn } from "./hooks/appHooks";
+import { getIsInitialized } from "./redux/selectors/appSelectors";
 import SideBar from "./components/SideBar/SideBar";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import Preloader from "./components/common/Preloader/Preloader";
-import store from "./redux/redux-store";
 import NotFound from "./components/404-Not-found/404";
-import { useInitializeAppFn } from "./hooks/appHooks";
 
 const ProfileContainer = React.lazy(() =>
   import("./components/Profile/ProfileContainerWithHooks")
@@ -16,13 +16,15 @@ const ProfileContainer = React.lazy(() =>
 const UsersContainer = React.lazy(() =>
   import("./components/Users/UsersContainerWithHooks")
 );
-// const Dialogs = React.lazy(() => import("./components/Dialogs/Dialogs"));
 const SettingsContainer = React.lazy(() =>
-  import("./components/Settings/SettingsContainer")
+import("./components/Settings/SettingsContainer")
 );
+// const Dialogs = React.lazy(() => import("./components/Dialogs/Dialogs"));
 
-const App = ({ isAppInitialized }) => {
+const App = () => {
   const initilizeApp = useInitializeAppFn();
+  const isAppInitialized = useSelector(getIsInitialized);
+
   useEffect(() => {
     initilizeApp();
   }, []);
@@ -50,12 +52,12 @@ const App = ({ isAppInitialized }) => {
             }
           >
             <Switch>
-              <Route path="/" exact component={ProfileContainer} />
+              <Route exact path="/"  component={ProfileContainer} />
               <Route path="/profile/:userId?" component={ProfileContainer} />
               {/* <Route path="/dialogs" render={() => <Dialogs />} /> */}
-              <Route path="/users" render={() => <UsersContainer />} />
-              <Route path="/settings" render={() => <SettingsContainer />} />
-              <Route path="/login" render={() => <Login />} />
+              <Route exact path="/users" render={() => <UsersContainer />} />
+              <Route exact path="/settings" render={() => <SettingsContainer />} />
+              <Route exact path="/login" render={() => <Login />} />
               <Route render={() => <NotFound />} />
             </Switch>
           </Suspense>
@@ -65,19 +67,10 @@ const App = ({ isAppInitialized }) => {
   );
 };
 
-App.propTypes = {
-  isAppInitialized: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isAppInitialized: state.app.initialized,
-});
-
-export const AppContainer = connect(mapStateToProps, {})(App);
 const MainApp = () => (
   <BrowserRouter basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
-      <AppContainer />
+      <App/>
     </Provider>
   </BrowserRouter>
 );
