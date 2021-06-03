@@ -9,6 +9,7 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import Preloader from "./components/common/Preloader/Preloader";
 import NotFound from "./components/404-Not-found/404";
+import AppNotificationsContainer from "./components/AppNotifications/AppNotificationsContainer";
 
 const ProfileContainer = React.lazy(() =>
   import("./components/Profile/ProfileContainerWithHooks")
@@ -63,6 +64,7 @@ const App = () => {
           </Suspense>
         </div>
       </div>
+      <AppNotificationsContainer/>
     </div>
   );
 };

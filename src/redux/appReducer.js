@@ -3,7 +3,6 @@ import { getAuthUserData } from "./authReducer";
 const INITIALIZATION_SUCCESS = "social/app/INITIALIZE-SUCCESS";
 const ADD_NOTIFICATION = "social/app/ADD-NOTIFICATION";
 const REMOVE_NOTIFICATION = "social/app/REMOVE-NOTIFICATION";
-const INCREMENT_NOTIFICATION_ID = "social/app/INCREMENT-NOTIFICATION-ID"
 
 const initialState = {
   initialized: false,
@@ -11,10 +10,6 @@ const initialState = {
   nextNotificationId : 0
 };
 
-// const notification = {
-//   type: "error/info/warning",
-//   message: "some message",
-// };
 
 const appReducer = (state = initialState, action) => {
   switch (action.type) {

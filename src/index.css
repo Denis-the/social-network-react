@@ -2,6 +2,7 @@
 @import './style/users.css';
 @import './style/header.css';
 @import './style/sidebar.css';
+@import './style/notifications.css';
 
 body {
   margin: 0;

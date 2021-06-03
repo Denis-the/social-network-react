@@ -1,0 +1,27 @@
+.notifications__container {
+    position: absolute;
+    left: 0;
+    top:0;
+}
+
+.notification {
+
+}
+
+.notification.info {
+    background-color: var(--teal-400);
+}
+.notification.error {
+    background-color: var(--orange-400);
+}
+.notification.warning {
+    background-color: var(--yellow-400);
+}
+
+.notification__message {
+
+}
+
+.notification__close-btn {
+
+}
