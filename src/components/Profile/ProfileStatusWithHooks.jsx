@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { getAuthId } from "../../redux/selectors/authSelectors";
+import { authSelectors } from "../../state/ducks/auth";
 import ChangeProfileStatusForm from "../forms/ChangeProfileStatusForm";
 
+const { getAuthId } = authSelectors;
 
 const ProfileStatusWithHooks = React.memo(({ profileId, status }) => {
   const [editMode, setEditMode] = useState(false);

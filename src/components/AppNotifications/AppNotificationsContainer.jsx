@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getNotifications } from '../../redux/selectors/appSelectors';
+import { appSelectors } from '../../state/ducks/app';
 import NotificationsList from './NotificationsList';
 
+const {getNotifications} = appSelectors;
 
 const AppNotificationsContainer = () => {
     const notifications = useSelector(getNotifications);

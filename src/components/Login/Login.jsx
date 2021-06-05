@@ -1,8 +1,10 @@
 import React from "react";
 import { Redirect } from "react-router";
 import { useSelector } from "react-redux";
-import { getIsAuth, } from "../../redux/selectors/authSelectors";
+import { authSelectors } from "../../state/ducks/auth";
 import LoginForm from "../forms/LoginForm";
+
+const { getIsAuth } = authSelectors
 
 const Login = () => {
   const isAuth = useSelector(getIsAuth);

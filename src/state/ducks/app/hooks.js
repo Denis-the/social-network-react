@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux";
-import { initilizeApp, showNotification } from "../redux/appReducer";
+import appOperations from "./operations";
+
+const { initilizeApp, showNotification } = appOperations;
 
 export const useInitializeAppFn = () => {
   const dispatch = useDispatch();
@@ -8,5 +10,10 @@ export const useInitializeAppFn = () => {
 
 export const useShowNotificationFn = () => {
   const dispatch = useDispatch();
-  return (type, message) => dispatch(showNotification(type, message))
-}
+  return (type, message) => dispatch(showNotification(type, message));
+};
+
+export default {
+  useInitializeAppFn,
+  useShowNotificationFn,
+};

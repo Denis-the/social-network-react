@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import LoginRedirectWrapper from "../../hoc/LoginRedirectWrapper/LoginRedirectWrapper";
-import { useClearThenFetchProfileFn } from "../../hooks/profileHooks";
-import { getAuthId } from "../../redux/selectors/authSelectors";
-import {
-  getIsFetching,
-  getProfileInfo,
-} from "../../redux/selectors/profileSelectors";
+import {profileHooks, profileSelectors} from "../../state/ducks/profile";
+import { authSelectors } from "../../state/ducks/auth";
 import Preloader from "../common/Preloader/Preloader";
 import Settings from "./Settings";
+
+const { getIsFetching, getProfileInfo } = profileSelectors
+const { getAuthId } = authSelectors
+const { useClearThenFetchProfileFn } = profileHooks
 
 const SettingsContainer = React.memo(() => {
   const reloadProfile = useClearThenFetchProfileFn();

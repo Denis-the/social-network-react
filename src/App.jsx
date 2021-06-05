@@ -1,15 +1,17 @@
 import React, { Suspense, useEffect } from "react";
 import { Provider, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import store from "./redux/redux-store";
-import { useInitializeAppFn } from "./hooks/appHooks";
-import { getIsInitialized } from "./redux/selectors/appSelectors";
+import store from "./state/store";
 import SideBar from "./components/SideBar/SideBar";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import Preloader from "./components/common/Preloader/Preloader";
 import NotFound from "./components/404-Not-found/404";
 import AppNotificationsContainer from "./components/AppNotifications/AppNotificationsContainer";
+import { appHooks, appSelectors } from "./state/ducks/app";
+
+const { getIsInitialized } = appSelectors
+const { useInitializeAppFn } = appHooks
 
 const ProfileContainer = React.lazy(() =>
   import("./components/Profile/ProfileContainerWithHooks")

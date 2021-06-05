@@ -15,8 +15,8 @@ const LoginRedirectWrapper = (WrappedComponent) => {
   };
 
   const mapAuthToProps = (state) => ({
-    isAuthRedirect: state.auth.isAuth,
-    isFetchingRedirect: state.auth.isFetching,
+    isAuthRedirect: state.authData.isAuth,
+    isFetchingRedirect: state.authData.isFetching,
   });
 
   const RedirectComponentConnected = connect(mapAuthToProps)(RedirectComponent);

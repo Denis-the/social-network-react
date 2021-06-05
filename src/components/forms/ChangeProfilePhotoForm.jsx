@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { FORM_ERROR } from "final-form";
 import { Field, Form } from "react-final-form";
-import { useUploadProfilePhotoFn } from "../../hooks/profileHooks";
+import { profileHooks } from "../../state/ducks/profile";
 import { ButtonFE } from "../common/FormElems/PrimeReactFormElems";
 
+const { useUploadProfilePhotoFn } = profileHooks;
 
 const ChangeProfilePhotoForm = React.memo(() => {
   const uploadProfilePhoto = useUploadProfilePhotoFn();

@@ -29,6 +29,7 @@ const Contacts = React.memo(({ contacts }) => {
 
 const ProfileInfo = React.memo(
   ({ profileInfo, status}) => {
+    console.log(profileInfo)
     if (!profileInfo) return null;
 
     return (

@@ -1,13 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getQueryParams,
-  getTotalUsersCount,
-} from "../redux/selectors/usersSelectors";
-import { fetchUsers, followTC, unfollowTC } from "../redux/usersReducer";
+import usersSelectors from "./selectors";
+import usersOperations from "./operations";
 
-export const useRequestUsersHandler = () => {
-  const { currentPage, perPage: perPageCurrent, searchTerm, searchFollowed } =
-    useSelector(getQueryParams);
+const { getQueryParams, getTotalUsersCount } = usersSelectors;
+const { fetchUsers, followTC, unfollowTC } = usersOperations;
+
+const useRequestUsersHandler = () => {
+  const {
+    currentPage,
+    perPage: perPageCurrent,
+    searchTerm,
+    searchFollowed,
+  } = useSelector(getQueryParams);
   const totalUsersCount = useSelector(getTotalUsersCount);
   const pagesTotal = Math.ceil(totalUsersCount / perPageCurrent);
   const dispatch = useDispatch();
@@ -83,7 +87,7 @@ export const useRequestUsersHandler = () => {
   return requestUsersHandler;
 };
 
-export const useFollowUsersHandler = () => {
+const useFollowUsersHandler = () => {
   const dispatch = useDispatch();
   return {
     requestFollowUser(userId) {
@@ -94,3 +98,8 @@ export const useFollowUsersHandler = () => {
     },
   };
 };
+
+export default {
+    useFollowUsersHandler,
+    useRequestUsersHandler
+}

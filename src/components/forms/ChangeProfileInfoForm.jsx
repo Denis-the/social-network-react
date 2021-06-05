@@ -13,7 +13,9 @@ import {
   minLengthFieldCreator,
   composeValidators,
 } from "../../utils/validators/validators";
-import { useChangeProfileFn } from "../../hooks/profileHooks";
+import { profileHooks } from "../../state/ducks/profile";
+
+const { useChangeProfileFn } = profileHooks
 
 const maxLengthField300 = maxLengthFieldCreator(300);
 const maxLengthField50 = maxLengthFieldCreator(50);

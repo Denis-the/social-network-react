@@ -11,8 +11,10 @@ import {
   minLengthFieldCreator,
   composeValidators,
 } from "../../utils/validators/validators";
-import { getCaptchaUrl, getIsCaptchaRequired } from "../../redux/selectors/authSelectors";
-import { useLoginFn }  from "../../hooks/loginHooks";
+import { authHooks, authSelectors } from "../../state/ducks/auth";
+
+const { getCaptchaUrl, getIsCaptchaRequired } = authSelectors;
+const { useLoginFn } = authHooks;
 
 const maxLengthField15 = maxLengthFieldCreator(15);
 const minLengthField6 = minLengthFieldCreator(6);

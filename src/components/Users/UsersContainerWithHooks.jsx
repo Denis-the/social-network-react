@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
-import {
+import { usersHooks, usersSelectors } from "../../state/ducks/users";
+import Users from "./Users";
+import Preloader from "../common/Preloader/Preloader";
+
+const {useRequestUsersHandler, useFollowUsersHandler} = usersHooks
+const {
   getFollowingInProgress,
   getIsFetching,
   getTotalUsersCount,
   getUsers,
   getQueryParams,
-} from "../../redux/selectors/usersSelectors";
-import Users from "./Users";
-import { useRequestUsersHandler } from "../../hooks/usersHooks";
-import Preloader from "../common/Preloader/Preloader";
+} = usersSelectors;
 
 const UsersContainer = () => {
   const queryParams = useSelector(getQueryParams);
@@ -21,6 +23,7 @@ const UsersContainer = () => {
   const isFetching = useSelector(getIsFetching);
   const followingInProgress = useSelector(getFollowingInProgress);
   const requestUsersHandler = useRequestUsersHandler();
+  const followUserHandler = useFollowUsersHandler();
   const location = useLocation();
   const history = useHistory();
 
@@ -71,6 +74,8 @@ const UsersContainer = () => {
         totalUsersCount={totalUsersCount}
         isFetching={isFetching}
         followingInProgress={followingInProgress}
+        followUserHandler={followUserHandler}
+        requestUsersHandler={requestUsersHandler}
         {...queryParams}
       />
     </>

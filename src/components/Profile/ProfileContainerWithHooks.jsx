@@ -1,17 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Redirect, useRouteMatch } from "react-router";
+import { profileSelectors, profileHooks } from "../../state/ducks/profile";
+import { authSelectors } from "../../state/ducks/auth";
 import LoginRedirectWrapper from "../../hoc/LoginRedirectWrapper/LoginRedirectWrapper";
-import {
-  useFetchProfileFn,
-  useFetchStatusFn,
-} from "../../hooks/profileHooks";
-import { getAuthId, getIsFetching } from "../../redux/selectors/authSelectors";
-import {
-  getProfileInfo,
-  getStatus,
-} from "../../redux/selectors/profileSelectors";
 import Profile from "./Profile";
+
+const { getAuthId, getIsFetching } = authSelectors;
+const { getProfileInfo, getStatus } = profileSelectors;
+const { useFetchProfileFn, useFetchStatusFn } = profileHooks;
 
 const ProfileContainer = () => {
   const match = useRouteMatch();
@@ -28,7 +25,6 @@ const ProfileContainer = () => {
     fetchProfile(match.params.userId || authId);
     fetchStatus(match.params.userId || authId);
   }, [match.params.userId, authId]);
-
   if (!match.params.userId) {
     return <Redirect to={`/profile/${authId}`} />;
   }

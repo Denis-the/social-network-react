@@ -1,7 +1,9 @@
 import React from "react";
 import { Field, Form } from "react-final-form";
-import { useChangeStatusFn } from "../../hooks/profileHooks";
+import { profileHooks } from "../../state/ducks/profile";
 import { ClearInputFE } from "../common/FormElems/PrimeReactFormElems";
+
+const { useChangeStatusFn } = profileHooks;
 
 const ChangeProfileStatusForm = ({ onSave, status }) => {
   const saveStatus = useChangeStatusFn();
