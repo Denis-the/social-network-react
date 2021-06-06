@@ -22,6 +22,7 @@
     "import/prefer-default-export": ["off"],
     "no-return-assign": ["off"],
     "arrow-body-style": ["warn"],
-    "no-unused-vars": ["warn"]
+    "no-unused-vars": ["warn"],
+    "no-debugger": ["warn"]
   }
 }

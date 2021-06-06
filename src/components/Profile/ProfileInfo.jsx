@@ -5,7 +5,6 @@ import { PanelUI } from "../common/UI-components/UIElems";
 
 const Contacts = React.memo(({ contacts }) => {
   const contactsJSX = Object.entries(contacts)
-    // .filter(([key, value]) => value)
     .filter(([, value]) => value)
     .map(([key, value]) => (
       <div key={key}>
@@ -29,7 +28,6 @@ const Contacts = React.memo(({ contacts }) => {
 
 const ProfileInfo = React.memo(
   ({ profileInfo, status}) => {
-    console.log(profileInfo)
     if (!profileInfo) return null;
 
     return (

@@ -1,9 +1,5 @@
-const getIsInitialized = state => state.appData.initialized;
-const getNotifications = state => state.appData.appNotifications;
-const getNextNotificationId = state => state.appData.nextNotificationId;
+const getIsInitialized = (state) => state.appData.initialized;
 
 export default {
-    getIsInitialized,
-    getNotifications,
-    getNextNotificationId,
-}
+  getIsInitialized,
+};

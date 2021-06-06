@@ -1,0 +1,7 @@
+const ADD_NOTIFICATION = "social/app/ADD-NOTIFICATION";
+const REMOVE_NOTIFICATION = "social/app/REMOVE-NOTIFICATION";
+
+export default {
+    ADD_NOTIFICATION,
+    REMOVE_NOTIFICATION
+}
