@@ -1,8 +1,8 @@
-import types from "./types";
+import types, { AuthStateType } from "./types";
 
-const { SET_CAPTCHA, SET_USER_DATA, TOGGLE_IS_FETCHING } = types
+const { SET_CAPTCHA, SET_USER_DATA, TOGGLE_IS_FETCHING } = types;
 
-const initialState = {
+const initialState: AuthStateType = {
   isAuth: false,
   userId: null,
   login: null,
@@ -12,7 +12,10 @@ const initialState = {
   captchaUrl: null,
 };
 
-const authReducer = (state = initialState, action) => {
+const authReducer = (
+  state: AuthStateType = initialState,
+  action: any
+): AuthStateType => {
   switch (action.type) {
     case SET_USER_DATA:
     case TOGGLE_IS_FETCHING:

@@ -7,14 +7,16 @@ const { clearCaptcha, setCaptcha, toggleIsFetching, setAuthMeProfileData } =
   actions;
 const { showNotification } = notificationsOperations;
 
-const getAuthUserData = () => async (dispatch: Function) => {
-  dispatch(toggleIsFetching(true));
-  const responseData = await authAPI.authMe();
-  const { id = null, login = null, email = null } = responseData.data;
-  dispatch(setAuthMeProfileData(id, login, email, !responseData.resultCode));
-  dispatch(toggleIsFetching(false));
-  return responseData;
-};
+const getAuthUserData =
+  () =>
+  async (dispatch: Function): Promise<any> => {
+    dispatch(toggleIsFetching(true));
+    const responseData = await authAPI.authMe();
+    const { id = null, login = null, email = null } = responseData.data;
+    dispatch(setAuthMeProfileData(id, login, email, !responseData.resultCode));
+    dispatch(toggleIsFetching(false));
+    return responseData;
+  };
 
 const fetchCaptcha = () => async (dispatch: Function) => {
   const responseData = await authAPI.getCaptchaUrl();
@@ -22,7 +24,8 @@ const fetchCaptcha = () => async (dispatch: Function) => {
 };
 
 const loginToServer =
-  (loginData: LoginDataType) => async (dispatch: Function) => {
+  (loginData: LoginDataType) =>
+  async (dispatch: Function): Promise<string> => {
     const responseData = await authAPI.login(loginData);
     let errorMessages = null;
     if (responseData.resultCode === 0) {
@@ -43,13 +46,15 @@ const loginToServer =
     return errorMessages;
   };
 
-const logoutFromServer = () => async (dispatch: Function) => {
-  const responseData = await authAPI.logout();
-  if (responseData.resultCode === 0) {
-    dispatch(setAuthMeProfileData(null, null, null, false));
-    dispatch(showNotification("info", "You have been logged out"));
-  }
-};
+const logoutFromServer =
+  () =>
+  async (dispatch: Function): Promise<void> => {
+    const responseData = await authAPI.logout();
+    if (responseData.resultCode === 0) {
+      dispatch(setAuthMeProfileData(null, null, null, false));
+      dispatch(showNotification("info", "You have been logged out"));
+    }
+  };
 
 export default {
   getAuthUserData,
