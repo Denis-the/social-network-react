@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import authOperations from "./operations";
+import authOperations from "./operations.ts";
 import authSelectors from "./selectors";
 
 const { loginToServer, logoutFromServer } = authOperations;

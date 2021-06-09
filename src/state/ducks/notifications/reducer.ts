@@ -1,13 +1,13 @@
-import types from "./types";
+import types, { notificationStateType } from "./types";
 
 const { ADD_NOTIFICATION, REMOVE_NOTIFICATION } = types;
 
-const initialState = {
+const initialState: notificationStateType = {
   appNotifications: [],
   nextNotificationId: 0,
 };
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): notificationStateType => {
   switch (action.type) {
     case ADD_NOTIFICATION:
       return {
@@ -32,4 +32,4 @@ const appReducer = (state = initialState, action) => {
   return state;
 };
 
-export default appReducer
+export default appReducer;

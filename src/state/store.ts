@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import thunkMiddleware from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import usersReducer from "./ducks/users";
 import authReducer from "./ducks/auth";
 import profileReducer from "./ducks/profile";
@@ -14,11 +15,8 @@ const reducers = combineReducers({
     notificationsData: notificationsReducer
 })
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(
+const store = createStore(reducers, composeWithDevTools(
         applyMiddleware(thunkMiddleware)
 ));
-// let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
-window.store = store;
 export default store;

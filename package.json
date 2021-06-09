@@ -4,6 +4,10 @@
   "homepage": "http://denis-the.github.io/social-network-react",
   "private": true,
   "dependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.1",
+    "@types/react": "^17.0.9",
+    "@types/react-dom": "^17.0.6",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "final-form": "^4.20.2",
@@ -23,7 +27,9 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^5.2.3",
-    "web-vitals": "^1.1.0"
+    "typescript": "^4.3.2",
+    "web-vitals": "^1.1.0",
+    "redux-devtools-extension": "^2.13.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -55,6 +61,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
+    "@types/react-redux": "^7.1.16",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -65,5 +72,6 @@
     "prettier": "^2.3.0",
     "pretty-quick": "^3.1.0",
     "react-test-renderer": "^17.0.1"
+    
   }
 }

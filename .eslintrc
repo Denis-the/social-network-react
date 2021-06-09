@@ -23,6 +23,8 @@
     "no-return-assign": ["off"],
     "arrow-body-style": ["warn"],
     "no-unused-vars": ["warn"],
-    "no-debugger": ["warn"]
+    "no-debugger": ["warn"],
+    "import/extensions": ["off"],
+    "import/no-unresolved": ["off"]
   }
 }
