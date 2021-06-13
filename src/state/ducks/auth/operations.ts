@@ -1,3 +1,4 @@
+import { AppDispatchType } from "state/store";
 import actions from "./actions";
 import { authAPI } from "../../../api/api";
 import { notificationsOperations } from "../notifications";
@@ -25,7 +26,7 @@ const fetchCaptcha = () => async (dispatch: Function) => {
 
 const loginToServer =
   (loginData: LoginDataType) =>
-  async (dispatch: Function): Promise<string> => {
+  async (dispatch: AppDispatchType): Promise<string> => {
     const responseData = await authAPI.login(loginData);
     let errorMessages = null;
     if (responseData.resultCode === 0) {

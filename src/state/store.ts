@@ -19,4 +19,6 @@ const store = createStore(reducers, composeWithDevTools(
         applyMiddleware(thunkMiddleware)
 ));
 
+export type AppDispatchType = typeof store.dispatch
+
 export default store;

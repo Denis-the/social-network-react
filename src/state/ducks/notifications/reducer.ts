@@ -15,7 +15,7 @@ const appReducer = (state = initialState, action: any): notificationStateType =>
         nextNotificationId: state.nextNotificationId + 1,
         appNotifications: [
           ...state.appNotifications,
-          action.payload.notification,
+          action.payload.notification
         ],
       };
 

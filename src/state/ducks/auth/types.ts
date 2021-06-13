@@ -3,7 +3,7 @@ const TOGGLE_IS_FETCHING = "social/auth/TOGGLE-IS-FETCHING";
 const SET_CAPTCHA = "social/auth/SET-CAPTCHA";
 
 export type AuthIdType = string;
-export type UserIdType = string | null;
+export type UserIdType = number | null;
 export type LoginType = string | null;
 export type EmailType = string | null;
 export type IsAuthType = boolean;

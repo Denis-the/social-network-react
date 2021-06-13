@@ -1,5 +1,10 @@
+import { string } from "prop-types";
+import { AppDispatchType } from "state/store";
 import { usersAPI } from "../../../api/api";
+import { UserIdType } from "../auth/types";
+import { notificationsOperations } from "../notifications";
 import actions from "./actions";
+import { FetchUsersArgType } from "./types";
 
 const {
   deleteFollowingProgress,
@@ -16,8 +21,8 @@ const {
 } = actions;
 
 const fetchUsers =
-  ({ page = 1, perPage = 10, term = null, followed = null }) =>
-  async (dispatch) => {
+  ({ page = 1, perPage = 10, term = null, followed = null }: FetchUsersArgType) =>
+  async (dispatch: AppDispatchType) => {
     dispatch(toggleIsFetching(true));
     try {
       const data = await usersAPI.requestUsers(page, perPage, term, followed);
@@ -28,42 +33,42 @@ const fetchUsers =
       dispatch(setCurrentPage(page));
       dispatch(setPerPageCount(perPage));
       dispatch(setSearchTerm(term));
-      dispatch(setSearchFollowed(JSON.parse(followed)));
+      dispatch(setSearchFollowed(followed));
     } catch (err) {
-      console.log(err);
+      dispatch(notificationsOperations.showNotification("error", err.message));
     }
     dispatch(toggleIsFetching(false));
   };
 
 const followUnfollowFlow = async (
-  dispatch,
-  getState,
-  userId,
-  APIMethod,
-  action
+  dispatch: AppDispatchType,
+  getState: Function,
+  userId: UserIdType,
+  APIMethod: Function,
+  action: Object
 ) => {
-  if (getState().usersReducer.followingInProgress.has(userId)) return;
+  if (getState().usersData.followingInProgress.has(userId)) return;
   dispatch(addFollowingProgress(userId));
   const data = await APIMethod(userId);
   dispatch(deleteFollowingProgress(userId));
   if (data.resultCode === 0) dispatch(action);
 };
 
-const followTC = (userId) => async (dispatch, getState) => {
+const followTC = (userId: UserIdType) => async (dispatch: AppDispatchType, getState: Function) => {
   const APIMethod = usersAPI.followUser.bind(usersAPI);
   const action = follow(userId);
   followUnfollowFlow(dispatch, getState, userId, APIMethod, action);
 };
 
-const unfollowTC = (userId) => async (dispatch, getState) => {
+const unfollowTC = (userId: UserIdType) => async (dispatch: AppDispatchType, getState: Function) => {
   const APIMethod = usersAPI.unfollowUser.bind(usersAPI);
   const action = unfollow(userId);
   followUnfollowFlow(dispatch, getState, userId, APIMethod, action);
 };
 
 export default {
-    fetchUsers,
-    followUnfollowFlow,
-    followTC,
-    unfollowTC,
-}
+  fetchUsers,
+  followUnfollowFlow,
+  followTC,
+  unfollowTC,
+};

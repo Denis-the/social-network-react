@@ -1,7 +1,19 @@
 import { updateObjectInArray } from "../../../utils/object-helpers";
-import types from "./types";
+import { UserIdType } from "../auth/types";
+import types, { UserType } from "./types";
 
-const initialUsersState = {
+type InitialStateType = {
+  users: Array<UserType>;
+  searchTerm: null | string;
+  searchFollowed: null | boolean;
+  perPage: number;
+  currentPage: number;
+  totalUsersCount: number;
+  isFetching: boolean;
+  followingInProgress: Set<UserIdType>;
+};
+
+const initialUsersState: InitialStateType = {
   users: [],
   searchTerm: null,
   searchFollowed: null,
@@ -12,7 +24,7 @@ const initialUsersState = {
   followingInProgress: new Set(),
 };
 
-const usersReducer = (state = initialUsersState, action) => {
+const usersReducer = (state: InitialStateType = initialUsersState, action: any): InitialStateType => {
   switch (action.type) {
     case types.SET_SEARCH_TERM:
     case types.SET_SEARCH_FOLLOWED:
@@ -41,7 +53,7 @@ const usersReducer = (state = initialUsersState, action) => {
         }),
       };
     }
-    
+
     case types.ADD_FOLLOWING_IN_PROGRESS: {
       const setCopy = new Set(state.followingInProgress);
       setCopy.add(action.payload.userId);

@@ -1,8 +1,9 @@
-import reducer from './reducer'
+import reducer from "./reducer";
 
 export { default as usersSelectors } from "./selectors";
 export { default as usersOperations } from "./operations";
 export { default as usersTypes } from "./types";
 export { default as usersHooks } from "./hooks";
+export type { UserType, FetchUsersArgType } from "./types";
 
 export default reducer;

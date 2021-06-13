@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router";
 import { useSelector } from "react-redux";
 import { authSelectors } from "../../state/ducks/auth";
-import LoginForm from "../forms/LoginForm";
+import LoginForm from "../forms/LoginForm.tsx";
 
 const { getIsAuth } = authSelectors
 

@@ -12,6 +12,7 @@ import {
   composeValidators,
 } from "../../utils/validators/validators";
 import { authHooks, authSelectors } from "../../state/ducks/auth";
+import { LoginDataType } from "../../types/types";
 
 const { getCaptchaUrl, getIsCaptchaRequired } = authSelectors;
 const { useLoginFn } = authHooks;
@@ -23,12 +24,12 @@ const LoginForm = () => {
   const isCaptchaRequired = useSelector(getIsCaptchaRequired);
   const captchaUrl = useSelector(getCaptchaUrl);
   const login = useLoginFn();
-
   return (
     <Form
-      onSubmit={(fields) =>
-        login(fields).then((err) => ({ [FORM_ERROR]: err }))
-      }
+      onSubmit={async (fields: LoginDataType) =>{
+        const messages = await login(fields)
+        return { [FORM_ERROR]: messages }
+      }}
       initialValues={{
         email: "",
         password: "",
@@ -83,6 +84,5 @@ const LoginForm = () => {
     </Form>
   );
 };
-
 
 export default LoginForm;

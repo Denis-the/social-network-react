@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { AppDispatchType } from "state/store";
 import authOperations from "./operations";
 import authSelectors from "./selectors";
 import { LoginDataType } from "../../../types/types";
@@ -11,7 +12,7 @@ const { getIsAuth, getIsFetching } = authSelectors;
 
 
 const useLoginFn = () => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatchType = useDispatch();
   const login = (fields: LoginDataType) => dispatch(loginToServer(fields));
   return login;
 };
